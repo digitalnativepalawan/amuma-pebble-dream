@@ -3,6 +3,7 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { Check } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const benefits = [
   "Name on founding plaque at AMUMA Long Beach",
@@ -60,7 +61,16 @@ const JoinSection = () => {
 
     setSubmitting(true);
     try {
-      // Supabase integration will be added once Cloud is enabled
+      const { error } = await supabase.from("applications").insert({
+        first_name: form.first_name.trim(),
+        last_name: form.last_name.trim(),
+        email: form.email.trim(),
+        phone: form.phone.trim(),
+        country: form.country,
+        referral_source: form.referral_source.trim() || null,
+        message: form.message.trim() || null,
+      });
+      if (error) throw error;
       toast({ title: "Application submitted!", description: "We'll be in touch soon." });
       setForm({ first_name: "", last_name: "", email: "", phone: "", country: "", referral_source: "", message: "" });
     } catch {
