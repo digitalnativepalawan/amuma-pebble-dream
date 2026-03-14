@@ -11,6 +11,7 @@ const links = [
   { label: "Roadmap", href: "#roadmap" },
   { label: "Team", href: "#team" },
   { label: "Join", href: "#join" },
+  { label: "FAQ", href: "#faq" },
 ];
 
 const Navbar = () => {

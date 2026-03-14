@@ -30,6 +30,23 @@ const phases = [
   { label: "Phase 1B (Months 12-24)", detail: "Remaining 1 Villa, 1 Suite, 5 Deluxe Rooms" },
 ];
 
+const UnitCard = ({ icon, name, count, rate, features }: typeof units[number]) => {
+  const ref = useScrollReveal();
+  return (
+    <div ref={ref} className="scroll-reveal bg-card rounded-2xl p-6 shadow-sm border border-border/30">
+      <div className="flex items-center gap-3 mb-3">
+        <span className="text-3xl">{icon}</span>
+        <h3 className="font-display text-lg font-bold text-foreground">
+          {name}{" "}
+          <span className="font-body text-sm font-normal text-muted-foreground">({count})</span>
+        </h3>
+      </div>
+      <p className="font-display text-2xl font-bold text-primary mb-2">{rate}</p>
+      <p className="font-body text-sm text-foreground/70">{features}</p>
+    </div>
+  );
+};
+
 const LongBeachSection = () => {
   const headingRef = useScrollReveal();
   const phasesRef = useScrollReveal();
@@ -48,45 +65,18 @@ const LongBeachSection = () => {
         </div>
 
         <div className="space-y-4 max-w-lg mx-auto mb-6">
-          {units.map((u) => {
-            const ref = useScrollReveal();
-            return (
-              <div
-                key={u.name}
-                ref={ref}
-                className="scroll-reveal bg-card rounded-2xl p-6 shadow-sm border border-border/30"
-              >
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="text-3xl">{u.icon}</span>
-                  <div>
-                    <h3 className="font-display text-lg font-bold text-foreground">
-                      {u.name}{" "}
-                      <span className="font-body text-sm font-normal text-muted-foreground">
-                        ({u.count})
-                      </span>
-                    </h3>
-                  </div>
-                </div>
-                <p className="font-display text-2xl font-bold text-primary mb-2">{u.rate}</p>
-                <p className="font-body text-sm text-foreground/70">{u.features}</p>
-              </div>
-            );
-          })}
+          {units.map((u) => (
+            <UnitCard key={u.name} {...u} />
+          ))}
         </div>
 
         <div className="text-center mb-8">
           <Badge variant="secondary" className="text-sm px-4 py-1">Total Keys: 9</Badge>
         </div>
 
-        <div
-          ref={phasesRef}
-          className="scroll-reveal space-y-3 max-w-lg mx-auto"
-        >
+        <div ref={phasesRef} className="scroll-reveal space-y-3 max-w-lg mx-auto">
           {phases.map((p) => (
-            <div
-              key={p.label}
-              className="bg-muted/40 rounded-2xl px-6 py-4 border border-border/30"
-            >
+            <div key={p.label} className="bg-muted/40 rounded-2xl px-6 py-4 border border-border/30">
               <p className="font-display text-sm font-bold text-primary">{p.label}</p>
               <p className="font-body text-sm text-foreground/70">{p.detail}</p>
             </div>

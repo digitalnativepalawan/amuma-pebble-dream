@@ -7,6 +7,10 @@ import BuildSection from "@/components/BuildSection";
 import LongBeachSection from "@/components/LongBeachSection";
 import RoadmapSection from "@/components/RoadmapSection";
 import TeamSection from "@/components/TeamSection";
+import CalculatorSection from "@/components/CalculatorSection";
+import JoinSection from "@/components/JoinSection";
+import FAQSection from "@/components/FAQSection";
+import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
@@ -20,16 +24,10 @@ const Index = () => {
       <LongBeachSection />
       <RoadmapSection />
       <TeamSection />
-
-      {/* Join section */}
-      <section id="join" className="py-20 bg-muted/40">
-        <div className="container px-6 text-center">
-          <h2 className="font-display text-3xl font-bold text-primary mb-4">
-            Join the Pebble Circle
-          </h2>
-          <p className="font-body text-muted-foreground">Coming soon...</p>
-        </div>
-      </section>
+      <CalculatorSection />
+      <JoinSection />
+      <FAQSection />
+      <Footer />
     </div>
   );
 };
