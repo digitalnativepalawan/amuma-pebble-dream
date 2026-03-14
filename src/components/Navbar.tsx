@@ -69,7 +69,7 @@ const Navbar = () => {
             {links.map((link) => (
               <button
                 key={link.href}
-                onClick={() => scrollTo(link.href)}
+                onClick={() => handleNav(link.href)}
                 className="text-left px-0 py-3 border-b border-border text-foreground/70 hover:text-primary transition-colors font-body text-sm tracking-wide"
               >
                 {link.label}
