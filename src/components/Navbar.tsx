@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 
@@ -13,11 +14,14 @@ const links = [
   { label: "Team", href: "#team" },
   { label: "Join", href: "#join" },
   { label: "FAQ", href: "#faq" },
+  { label: "Technology", href: "/technology" },
 ];
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -25,10 +29,16 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const scrollTo = (href: string) => {
+  const handleNav = (href: string) => {
     setOpen(false);
-    const el = document.querySelector(href);
-    el?.scrollIntoView({ behavior: "smooth" });
+    if (href.startsWith("/")) {
+      navigate(href);
+    } else if (location.pathname !== "/") {
+      navigate("/" + href);
+    } else {
+      const el = document.querySelector(href);
+      el?.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
@@ -59,7 +69,7 @@ const Navbar = () => {
             {links.map((link) => (
               <button
                 key={link.href}
-                onClick={() => scrollTo(link.href)}
+                onClick={() => handleNav(link.href)}
                 className="text-left px-0 py-3 border-b border-border text-foreground/70 hover:text-primary transition-colors font-body text-sm tracking-wide"
               >
                 {link.label}

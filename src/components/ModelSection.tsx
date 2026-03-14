@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const ModelSection = () => {
@@ -49,10 +50,16 @@ const ModelSection = () => {
 
         <div ref={flowRef} className="scroll-reveal max-w-md">
           <h3 className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-6">Revenue Flow</h3>
-          <div className="space-y-3 font-body text-base text-foreground/70">
+          <div className="space-y-3 font-body text-base text-foreground/70 mb-10">
             <p>Room Revenue → 60% Member Pool → Pebble Holders</p>
             <p>Room Revenue → 40% Operating Holding → Management</p>
           </div>
+          <Link
+            to="/technology"
+            className="inline-flex items-center font-body text-sm text-primary hover:text-primary/80 transition-colors"
+          >
+            Learn how Pebbles work →
+          </Link>
         </div>
       </div>
     </section>
