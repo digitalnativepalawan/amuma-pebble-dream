@@ -16,7 +16,6 @@ const LOW_SEASON_DAYS = 91;
 const TOTAL_PEBBLES = 325_000;
 const MEMBER_SHARE = 0.60;
 
-// Daily potential revenue: 2 villas @18k + 2 suites @12k + 5 deluxe @5.5k
 const DAILY_POTENTIAL = 2 * 18_000 + 2 * 12_000 + 5 * 5_500; // 87,500
 
 const fmt = (n: number) => "₱" + Math.round(n).toLocaleString();
@@ -53,77 +52,77 @@ const CalculatorSection = () => {
   };
 
   return (
-    <section id="calculator" className="py-20 bg-muted/40">
+    <section id="calculator" className="section-padding bg-muted/30">
       <div className="container px-6">
-        <div ref={headingRef} className="scroll-reveal text-center mb-10">
-          <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary mb-2">
+        <div ref={headingRef} className="scroll-reveal text-center mb-14">
+          <h2 className="font-display text-4xl sm:text-5xl font-bold text-primary mb-3">
             Your Investment. Your Returns.
           </h2>
-          <p className="font-body text-muted-foreground">Adjust the sliders to see your potential.</p>
+          <p className="font-body text-lg text-muted-foreground">Adjust the sliders to see your potential.</p>
         </div>
 
-        <div className="max-w-lg mx-auto bg-card/80 backdrop-blur-xl rounded-3xl p-6 sm:p-8 shadow-lg border border-border/30">
+        <div className="max-w-lg mx-auto bg-card/80 backdrop-blur-xl rounded-3xl p-8 sm:p-10 border border-border/20" style={{ boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.08)' }}>
           {/* Investment input */}
-          <div className="mb-8">
-            <label className="font-body text-sm font-medium text-foreground block mb-3">
+          <div className="mb-10">
+            <label className="font-body text-base font-medium text-foreground block mb-4">
               Your Investment (₱)
             </label>
-            <div className="flex items-center justify-center gap-4">
+            <div className="flex items-center justify-center gap-5">
               <button
                 onClick={() => adjust(-100_000)}
-                className="h-10 w-10 rounded-full border-2 border-primary text-primary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+                className="h-12 w-12 rounded-full border-2 border-primary text-primary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all duration-200 hover:scale-110"
               >
-                <Minus className="h-4 w-4" />
+                <Minus className="h-5 w-5" />
               </button>
-              <span className="font-display text-2xl sm:text-3xl font-bold text-primary min-w-[180px] text-center">
+              <span className="font-display text-3xl sm:text-4xl font-bold text-primary min-w-[200px] text-center">
                 {fmt(investment)}
               </span>
               <button
                 onClick={() => adjust(100_000)}
-                className="h-10 w-10 rounded-full border-2 border-primary text-primary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+                className="h-12 w-12 rounded-full border-2 border-primary text-primary flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-all duration-200 hover:scale-110"
               >
-                <Plus className="h-4 w-4" />
+                <Plus className="h-5 w-5" />
               </button>
             </div>
           </div>
 
           {/* Club Shares slider */}
-          <div className="mb-8">
-            <div className="flex items-center justify-between mb-3">
-              <label className="font-body text-sm font-medium text-foreground">
+          <div className="mb-10">
+            <div className="flex items-center justify-between mb-4">
+              <label className="font-body text-base font-medium text-foreground">
                 Club Shares (at ₱10,000 each)
               </label>
-              <span className="font-display text-lg font-bold text-primary">{clubShares}</span>
+              <span className="font-display text-xl font-bold text-primary">{clubShares}</span>
             </div>
             <Slider
               value={[clubShares]}
               onValueChange={([v]) => setClubShares(v)}
               max={200}
               step={1}
-              className="mb-1"
+              className="mb-2"
             />
-            <p className="font-body text-xs text-muted-foreground">Each Club Share = ₱10,000</p>
+            <p className="font-body text-sm text-muted-foreground">Each Club Share = ₱10,000</p>
           </div>
 
           {/* Scenario buttons */}
-          <div className="flex gap-2 justify-center mb-8">
-            {(["conservative", "base", "optimistic"] as Scenario[]).map((s) => (
+          <div className="flex gap-3 justify-center mb-10">
+            {(["conservative", "base", "optimistic"] as Scenario[]).map((sc) => (
               <button
-                key={s}
-                onClick={() => setScenario(s)}
-                className={`font-body text-xs px-4 py-2 rounded-full border transition-colors capitalize ${
-                  scenario === s
-                    ? "bg-primary text-primary-foreground border-primary"
-                    : "border-primary/40 text-primary hover:bg-primary/10"
+                key={sc}
+                onClick={() => setScenario(sc)}
+                className={`font-body text-sm px-5 py-2.5 rounded-full border-2 transition-all duration-200 capitalize hover:scale-105 ${
+                  scenario === sc
+                    ? "bg-primary text-primary-foreground border-primary shadow-md"
+                    : "border-primary/30 text-primary hover:border-primary"
                 }`}
               >
-                {s === "base" ? "Base Case" : s}
+                {sc === "base" ? "Base Case" : sc}
               </button>
             ))}
           </div>
 
           {/* Quick stats */}
-          <div className="grid grid-cols-2 gap-3 mb-6">
+          <div className="grid grid-cols-2 gap-4 mb-8">
             <StatMini label="Pebbles" value={results.pebbles.toLocaleString()} />
             <StatMini label="Ownership" value={`${(results.ownership * 100).toFixed(2)}%`} />
             <StatMini label="Annual Distribution" value={fmt(results.annual)} />
@@ -131,7 +130,7 @@ const CalculatorSection = () => {
           </div>
 
           {/* Detailed results */}
-          <div className="space-y-3 mb-8">
+          <div className="space-y-3 mb-10">
             <ResultRow label="5-Year Cumulative" value={fmt(results.fiveYear)} />
             <ResultRow label={`Exit Value (${scenarios[scenario].exitMultiple}x)`} value={fmt(results.exitValue)} />
             <ResultRow label="Total Return" value={fmt(results.totalReturn)} highlight />
@@ -140,7 +139,7 @@ const CalculatorSection = () => {
 
           {/* Download */}
           <div className="text-center">
-            <button className="font-body text-sm font-semibold bg-secondary text-secondary-foreground px-8 py-3 rounded-full hover:bg-secondary/90 transition-colors">
+            <button className="font-body text-base font-semibold bg-secondary text-secondary-foreground px-10 py-4 rounded-full hover:scale-105 transition-all duration-200 shadow-md">
               Download PDF Summary
             </button>
           </div>
@@ -151,16 +150,16 @@ const CalculatorSection = () => {
 };
 
 const StatMini = ({ label, value }: { label: string; value: string }) => (
-  <div className="bg-muted/60 rounded-2xl p-4 text-center">
-    <p className="font-body text-xs text-muted-foreground mb-1">{label}</p>
-    <p className="font-display text-lg font-bold text-primary">{value}</p>
+  <div className="bg-muted/50 rounded-2xl p-5 text-center">
+    <p className="font-body text-sm text-muted-foreground mb-1">{label}</p>
+    <p className="font-display text-xl font-bold text-primary">{value}</p>
   </div>
 );
 
 const ResultRow = ({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) => (
-  <div className={`rounded-2xl px-5 py-3 flex items-center justify-between ${highlight ? "bg-primary/10" : "bg-muted/40"}`}>
-    <span className="font-body text-sm text-foreground/70">{label}</span>
-    <span className={`font-display text-lg font-bold ${highlight ? "text-primary" : "text-foreground"}`}>{value}</span>
+  <div className={`rounded-2xl px-6 py-4 flex items-center justify-between ${highlight ? "bg-primary/10" : "bg-muted/30"}`}>
+    <span className="font-body text-base text-foreground/70">{label}</span>
+    <span className={`font-display text-xl font-bold ${highlight ? "text-primary" : "text-foreground"}`}>{value}</span>
   </div>
 );
 

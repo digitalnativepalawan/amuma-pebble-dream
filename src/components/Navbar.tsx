@@ -24,8 +24,8 @@ const Navbar = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-card/70 backdrop-blur-xl border-b border-border/50">
-      <div className="container flex items-center justify-between h-16">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-card/80 backdrop-blur-xl border-b border-border/30">
+      <div className="container flex items-center justify-between h-16 px-6">
         <a href="#" className="font-display text-2xl font-bold text-primary tracking-wider">
           AMUMA
         </a>
@@ -48,7 +48,7 @@ const Navbar = () => {
               <button
                 key={link.href}
                 onClick={() => scrollTo(link.href)}
-                className="text-left px-4 py-3 rounded-lg text-foreground/80 hover:text-primary hover:bg-muted transition-colors font-body text-sm font-medium tracking-wide"
+                className="text-left px-4 py-3 rounded-lg text-foreground/80 hover:text-primary hover:bg-muted transition-colors font-body text-base font-medium tracking-wide"
               >
                 {link.label}
               </button>
