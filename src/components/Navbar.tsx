@@ -8,6 +8,7 @@ const links = [
   { label: "Model", href: "#model" },
   { label: "Long Beach", href: "#longbeach" },
   { label: "Calculator", href: "#calculator" },
+  { label: "Portal", href: "#portal" },
   { label: "Roadmap", href: "#roadmap" },
   { label: "Team", href: "#team" },
   { label: "Join", href: "#join" },
