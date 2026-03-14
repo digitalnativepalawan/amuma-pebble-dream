@@ -1,23 +1,9 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-
-const images = [
-  { alt: "Pool area", label: "Pool" },
-  { alt: "Room exterior", label: "Exterior" },
-  { alt: "Suite shower", label: "Suite" },
-  { alt: "Restaurant", label: "Restaurant" },
-];
 
 const scores = [
-  { label: "Location", score: "9.3" },
-  { label: "Staff", score: "9.6" },
-  { label: "Facilities", score: "9.5" },
+  { label: "LOCATION", score: "9.3" },
+  { label: "STAFF", score: "9.6" },
+  { label: "FACILITIES", score: "9.5" },
 ];
 
 const reviews = [
@@ -34,10 +20,9 @@ const reviews = [
 ];
 
 const metrics = [
-  "3 Deluxe Rooms + 1 Suite",
-  "Deluxe: ₱5,500/night | Suite: ₱12,000/night",
-  "High Season: November–July (9 months)",
-  "Low Season: August–October (3 months)",
+  "3 DELUXE + 1 SUITE",
+  "RATES ₱5,500 – ₱12,000",
+  "HIGH SEASON NOV–JUL",
 ];
 
 const ProofSection = () => {
@@ -47,55 +32,48 @@ const ProofSection = () => {
   const metricsRef = useScrollReveal();
 
   return (
-    <section id="proof" className="section-padding bg-muted/30">
+    <section id="proof" className="section-padding bg-background">
       <div className="container px-6">
-        <div ref={headingRef} className="scroll-reveal text-center mb-12">
-          <h2 className="font-display text-4xl sm:text-5xl font-bold text-primary mb-3">
-            The Proof: Baia
+        <div ref={headingRef} className="scroll-reveal mb-16">
+          <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary uppercase tracking-[0.1em] mb-2">
+            The Proof
           </h2>
+          <p className="font-body text-base text-muted-foreground">
+            Baia · San Vicente, Palawan
+          </p>
         </div>
 
-        {/* Carousel */}
-        <div className="max-w-md mx-auto mb-12">
-          <Carousel className="w-full">
-            <CarouselContent>
-              {images.map((img) => (
-                <CarouselItem key={img.label}>
-                  <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-primary/5 flex items-center justify-center">
-                    <div className="text-center text-muted-foreground">
-                      <div className="text-5xl mb-3">📷</div>
-                      <p className="font-body text-base">{img.label}</p>
-                    </div>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="-left-4 bg-card border-border/30 hover:bg-primary hover:text-primary-foreground transition-colors" />
-            <CarouselNext className="-right-4 bg-card border-border/30 hover:bg-primary hover:text-primary-foreground transition-colors" />
-          </Carousel>
+        {/* Image grid */}
+        <div className="grid grid-cols-2 gap-3 mb-16">
+          {["Pool", "Exterior", "Suite", "Restaurant"].map((label) => (
+            <div key={label} className="aspect-[4/3] bg-muted flex items-center justify-center">
+              <span className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground">{label}</span>
+            </div>
+          ))}
         </div>
 
-        {/* Booking scores */}
-        <div ref={scoresRef} className="scroll-reveal flex justify-center gap-4 sm:gap-6 mb-12">
-          {scores.map((s) => (
-            <div
-              key={s.label}
-              className="card-premium px-6 py-4 text-center"
-            >
-              <p className="font-body text-xs text-muted-foreground mb-1">{s.label}</p>
-              <p className="font-display text-3xl font-bold text-primary">{s.score}</p>
+        {/* Scores */}
+        <div ref={scoresRef} className="scroll-reveal flex items-center justify-start gap-0 mb-16">
+          {scores.map((s, i) => (
+            <div key={s.label} className="flex items-center">
+              {i > 0 && <div className="w-px h-10 bg-border mx-6" />}
+              <div>
+                <p className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-1">{s.label}</p>
+                <p className="font-display text-3xl font-normal text-primary">{s.score}</p>
+              </div>
             </div>
           ))}
         </div>
 
         {/* Reviews */}
-        <div ref={reviewsRef} className="scroll-reveal space-y-5 max-w-lg mx-auto mb-12">
+        <div ref={reviewsRef} className="scroll-reveal space-y-10 mb-16 max-w-lg">
           {reviews.map((r) => (
-            <div key={r.author} className="card-premium">
-              <p className="font-body text-base text-foreground/80 italic leading-relaxed mb-4">
-                "{r.quote}"
+            <div key={r.author}>
+              <span className="font-display text-5xl text-secondary leading-none">"</span>
+              <p className="font-body text-base text-foreground/80 leading-relaxed -mt-4 ml-6">
+                {r.quote}
               </p>
-              <p className="font-body text-sm font-semibold text-primary">
+              <p className="font-body text-sm text-muted-foreground mt-3 ml-6">
                 — {r.author}, {r.country}
               </p>
             </div>
@@ -103,11 +81,9 @@ const ProofSection = () => {
         </div>
 
         {/* Metrics */}
-        <div ref={metricsRef} className="scroll-reveal space-y-3 max-w-lg mx-auto">
+        <div ref={metricsRef} className="scroll-reveal space-y-4">
           {metrics.map((m) => (
-            <div key={m} className="card-premium text-center">
-              <p className="font-body text-base font-medium text-foreground">{m}</p>
-            </div>
+            <p key={m} className="font-body text-sm uppercase tracking-[0.15em] text-muted-foreground">{m}</p>
           ))}
         </div>
       </div>

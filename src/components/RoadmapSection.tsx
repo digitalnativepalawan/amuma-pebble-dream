@@ -3,87 +3,85 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 const timeline = [
   {
     year: "2026",
-    title: "2026 – Phase 1A Begins",
-    details: ["Tier 1 Kickstarter closes · Ground breaking · Construction starts"],
+    title: "Phase 1A Begins",
+    detail: "Tier 1 Kickstarter closes, ground breaking, construction starts",
   },
   {
     year: "2027",
-    title: "2027 – Long Beach Complete",
-    details: ["Phase 1B finished · Resort operational · Tier 2-4 Pebble sales"],
+    title: "Long Beach Complete",
+    detail: "Resort operational, Tier 2–4 Pebble sales",
   },
   {
     year: "2028",
-    title: "2028 – Silum Silum Launch",
-    details: ["Flagship property in Balabac · New Pebble offering"],
+    title: "Silum Silum Launch",
+    detail: "Balabac flagship begins, new Pebble offering",
   },
   {
     year: "2029+",
-    title: "2029+ – Philippines Expansion",
-    details: [
-      "5-7 properties: Bukidnon, Sagada, Batanes, Siquijor, Sibuyan",
-      "Then: Indonesia, Laos, Timor-Leste",
-      "Dream: Puglia, Italy 🇮🇹",
-    ],
+    title: "Philippines Expansion",
+    detail: "5–7 properties across the archipelago, then Southeast Asia",
   },
 ];
 
 const landStatus = [
-  { icon: "✅", text: "San Vicente, Palawan (2,000 sqm)" },
-  { icon: "✅", text: "Balabac, Palawan (TBD)" },
-  { icon: "🔄", text: "Scouting others" },
+  { location: "San Vicente, Palawan (2,000 sqm)", status: "Secured" },
+  { location: "Balabac, Palawan", status: "Secured" },
+  { location: "Additional sites", status: "Scouting" },
 ];
-
-const TimelineCard = ({ item }: { item: typeof timeline[number] }) => {
-  const ref = useScrollReveal();
-  return (
-    <div ref={ref} className="scroll-reveal relative pl-12">
-      <div className="absolute left-2.5 top-2 h-4 w-4 rounded-full bg-primary border-4 border-background" />
-      <div className="card-premium">
-        <h3 className="font-display text-lg font-bold text-primary mb-2">{item.title}</h3>
-        {item.details.map((line, i) => (
-          <p key={i} className="font-body text-base text-foreground/70">{line}</p>
-        ))}
-      </div>
-    </div>
-  );
-};
 
 const RoadmapSection = () => {
   const headingRef = useScrollReveal();
   const landRef = useScrollReveal();
 
   return (
-    <section id="roadmap" className="section-padding bg-muted/30">
+    <section id="roadmap" className="section-padding bg-background">
       <div className="container px-6">
-        <div ref={headingRef} className="scroll-reveal text-center mb-14">
-          <h2 className="font-display text-4xl sm:text-5xl font-bold text-primary mb-3">
+        <div ref={headingRef} className="scroll-reveal mb-16">
+          <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary uppercase tracking-[0.1em] mb-4">
             Roadmap
           </h2>
         </div>
 
-        <div className="relative max-w-lg mx-auto mb-12">
-          <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-primary/20" />
-          <div className="space-y-8">
+        <div className="relative max-w-lg mb-16">
+          <div className="absolute left-[3px] top-2 bottom-2 w-px bg-border" />
+          <div className="space-y-12">
             {timeline.map((item) => (
-              <TimelineCard key={item.year} item={item} />
+              <TimelineEntry key={item.year} item={item} />
             ))}
           </div>
         </div>
 
-        <div ref={landRef} className="scroll-reveal max-w-lg mx-auto">
-          <h3 className="font-display text-xl font-bold text-primary mb-4 text-center">
-            Land Owned
-          </h3>
-          <div className="space-y-3">
+        <div className="divider mb-12" />
+
+        <div ref={landRef} className="scroll-reveal max-w-lg">
+          <p className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-6">Land Status</p>
+          <div className="space-y-4">
             {landStatus.map((l) => (
-              <p key={l.text} className="font-body text-base text-foreground/80 text-center">
-                {l.icon} {l.text}
-              </p>
+              <div key={l.location} className="flex items-baseline justify-between">
+                <span className="font-body text-base text-foreground/70">{l.location}</span>
+                <span className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground">{l.status}</span>
+              </div>
             ))}
           </div>
         </div>
       </div>
     </section>
+  );
+};
+
+const TimelineEntry = ({ item }: { item: typeof timeline[number] }) => {
+  const ref = useScrollReveal();
+  return (
+    <div ref={ref} className="scroll-reveal relative pl-10">
+      <div className="absolute left-0 top-2 h-[7px] w-[7px] rounded-full bg-primary" />
+      <div className="flex flex-col sm:flex-row sm:items-baseline sm:gap-6">
+        <span className="font-display text-3xl sm:text-4xl font-normal text-primary leading-none">{item.year}</span>
+        <div className="mt-2 sm:mt-0">
+          <p className="font-body text-base text-foreground mb-1">{item.title}</p>
+          <p className="font-body text-sm text-muted-foreground">{item.detail}</p>
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -9,8 +9,6 @@ const quickLinks = [
   { label: "Join", href: "#join" },
 ];
 
-const legalLinks = ["Private Placement", "Terms", "Privacy"];
-
 const legalSections = [
   {
     title: "Private Placement",
@@ -24,9 +22,9 @@ THE OFFERING IS LIMITED TO A MAXIMUM OF 20 NON-ACCREDITED INVESTORS IN THE TIER 
     defaultOpen: false,
     content: `ACCESS TO AND USE OF THIS WEBSITE AND THE INFORMATION CONTAINED HEREIN IS SUBJECT TO THE FOLLOWING TERMS AND CONDITIONS. BY ACCESSING THIS WEBSITE, YOU ACKNOWLEDGE THAT YOU HAVE READ, UNDERSTOOD, AND AGREE TO BE BOUND BY THESE TERMS.
 
-This website and its contents are operated by AMUMA Holding, a corporation organized under the laws of the Republic of the Philippines. All information presented herein is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any securities. Such offers will only be made pursuant to a definitive private placement memorandum and related subscription documents.
+This website and its contents are operated by AMUMA Holding, a corporation organized under the laws of the Republic of the Philippines. All information presented herein is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any securities.
 
-The information contained on this website is not intended for distribution to, or use by, any person or entity in any jurisdiction or country where such distribution or use would be contrary to law or regulation. It is the responsibility of any person accessing this website to comply with all applicable laws and regulations of their jurisdiction.
+The information contained on this website is not intended for distribution to, or use by, any person or entity in any jurisdiction or country where such distribution or use would be contrary to law or regulation.
 
 NO REPRESENTATION OR WARRANTY IS MADE AS TO THE ACCURACY, COMPLETENESS, OR TIMELINESS OF THE INFORMATION CONTAINED HEREIN. ALL INFORMATION IS PROVIDED 'AS IS' WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED.`,
   },
@@ -35,64 +33,36 @@ NO REPRESENTATION OR WARRANTY IS MADE AS TO THE ACCURACY, COMPLETENESS, OR TIMEL
     defaultOpen: false,
     content: `AMUMA Holding respects your privacy and is committed to protecting your personal data. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or submit applications through our platform.
 
-INFORMATION WE COLLECT: We may collect personal information that you voluntarily provide to us when you express interest in obtaining information about us or our offerings, submit an application form, or otherwise contact us. The personal information we collect may include your name, email address, phone number, country of residence, and any other information you choose to provide.
+INFORMATION WE COLLECT: We may collect personal information that you voluntarily provide to us when you express interest in obtaining information about us or our offerings, submit an application form, or otherwise contact us.
 
 USE OF INFORMATION: We use the information we collect to evaluate your eligibility as an investor, communicate with you regarding investment opportunities, comply with applicable legal and regulatory requirements, and maintain records of interested parties.
 
-DATA SECURITY: We implement appropriate technical and organizational security measures designed to protect your personal information. However, no electronic transmission over the internet or information storage technology can be guaranteed to be 100% secure.
+DATA SECURITY: We implement appropriate technical and organizational security measures designed to protect your personal information.
 
-DISCLOSURE OF INFORMATION: We do not sell, trade, or rent your personal information to third parties. We may share your information with our legal advisors, blockchain developers, and other service providers who assist in the operation of our business and the offering.
-
-DATA RETENTION: We will retain your personal information only for as long as necessary to fulfill the purposes for which it was collected, including for the purposes of satisfying any legal, regulatory, accounting, or reporting requirements.
-
-YOUR RIGHTS: Under the Data Privacy Act of 2012 (Republic Act No. 10173) of the Philippines, you have the right to access, correct, or request the deletion of your personal information. To exercise these rights, please contact us at privacy@amuma.ph.
-
-CONTACT US: If you have questions about this Privacy Policy, please contact us at privacy@amuma.ph.`,
+YOUR RIGHTS: Under the Data Privacy Act of 2012 (Republic Act No. 10173) of the Philippines, you have the right to access, correct, or request the deletion of your personal information. Contact us at privacy@amuma.ph.`,
   },
 ];
 
-const disclaimers = `RESTRICTIONS ON OFFERING: The securities offered are not being offered or sold in the United States or to U.S. persons. This website is not intended for access by any person in the United States or any U.S. person.
+const disclaimers = `RESTRICTIONS ON OFFERING: The securities offered are not being offered or sold in the United States or to U.S. persons.
 
-FORWARD-LOOKING STATEMENTS: This website contains forward-looking statements regarding future events, financial projections, and business strategies. These statements involve known and unknown risks, uncertainties, and other factors that may cause actual results to differ materially. Past performance of Baia is not necessarily indicative of future results for AMUMA properties.
+FORWARD-LOOKING STATEMENTS: This website contains forward-looking statements regarding future events, financial projections, and business strategies. Past performance of Baia is not necessarily indicative of future results.
 
-RISK FACTORS: An investment in AMUMA properties involves significant risks, including but not limited to construction delays, market conditions, regulatory changes, operational challenges, and liquidity limitations.
+RISK FACTORS: An investment in AMUMA properties involves significant risks, including construction delays, market conditions, regulatory changes, operational challenges, and liquidity limitations.
 
 INTELLECTUAL PROPERTY: All content on this website is the property of AMUMA Holding and is protected by Philippine and international copyright laws.`;
 
-const LegalAccordion = ({
-  title,
-  defaultOpen,
-  content,
-}: {
-  title: string;
-  defaultOpen: boolean;
-  content: string;
-}) => {
+const LegalAccordion = ({ title, defaultOpen, content }: { title: string; defaultOpen: boolean; content: string }) => {
   const [open, setOpen] = useState(defaultOpen);
 
   return (
     <div className="border-b border-primary-foreground/10 last:border-0">
-      <button
-        onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center justify-between py-4 text-left group"
-      >
-        <span className="font-body text-sm font-semibold text-primary-foreground/90 uppercase tracking-wider">
-          {title}
-        </span>
-        <ChevronDown
-          className={`h-4 w-4 text-primary-foreground/50 shrink-0 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
-        />
+      <button onClick={() => setOpen((v) => !v)} className="w-full flex items-center justify-between py-4 text-left">
+        <span className="font-body text-sm text-primary-foreground/80 uppercase tracking-[0.15em]">{title}</span>
+        <ChevronDown className={`h-4 w-4 text-primary-foreground/40 transition-transform duration-200 ${open ? "rotate-180" : ""}`} strokeWidth={1.5} />
       </button>
-      <div
-        className={`overflow-hidden transition-all duration-300 ${open ? "max-h-[2000px] opacity-100 pb-5" : "max-h-0 opacity-0"}`}
-      >
+      <div className={`overflow-hidden transition-all duration-300 ${open ? "max-h-[2000px] opacity-100 pb-5" : "max-h-0 opacity-0"}`}>
         {content.split("\n\n").map((p, i) => (
-          <p
-            key={i}
-            className="font-body text-xs text-primary-foreground/60 leading-relaxed mb-3 last:mb-0"
-          >
-            {p}
-          </p>
+          <p key={i} className="font-body text-xs text-primary-foreground/50 leading-relaxed mb-3 last:mb-0">{p}</p>
         ))}
       </div>
     </div>
@@ -107,94 +77,53 @@ const Footer = () => {
 
   return (
     <footer className="bg-primary text-primary-foreground">
-      {/* Main footer */}
-      <div className="py-20 border-b border-primary-foreground/10">
+      <div className="py-16 border-b border-primary-foreground/10">
         <div className="container px-6">
-          <h2 className="font-display text-3xl font-bold mb-12 text-center tracking-wide">
-            AMUMA Collection
-          </h2>
+          <p className="font-display text-2xl font-bold uppercase tracking-[0.2em] mb-10">AMUMA</p>
 
-          <div className="grid sm:grid-cols-3 gap-10 max-w-lg sm:max-w-2xl mx-auto">
+          <div className="grid sm:grid-cols-3 gap-10 max-w-lg sm:max-w-2xl">
             <div>
-              <h3 className="font-body text-sm font-semibold mb-4 opacity-60 uppercase tracking-wider">
-                Quick Links
-              </h3>
-              <ul className="space-y-3">
+              <p className="font-body text-xs uppercase tracking-[0.15em] text-primary-foreground/40 mb-4">Links</p>
+              <ul className="space-y-2">
                 {quickLinks.map((l) => (
                   <li key={l.href}>
-                    <button
-                      onClick={() => scrollTo(l.href)}
-                      className="font-body text-base opacity-80 hover:opacity-100 transition-opacity"
-                    >
-                      {l.label}
-                    </button>
+                    <button onClick={() => scrollTo(l.href)} className="font-body text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{l.label}</button>
                   </li>
                 ))}
               </ul>
             </div>
-
             <div>
-              <h3 className="font-body text-sm font-semibold mb-4 opacity-60 uppercase tracking-wider">
-                Legal
-              </h3>
-              <ul className="space-y-3">
-                {legalLinks.map((l) => (
-                  <li key={l}>
-                    <span className="font-body text-base opacity-80">{l}</span>
-                  </li>
+              <p className="font-body text-xs uppercase tracking-[0.15em] text-primary-foreground/40 mb-4">Legal</p>
+              <ul className="space-y-2">
+                {["Private Placement", "Terms", "Privacy"].map((l) => (
+                  <li key={l}><span className="font-body text-sm text-primary-foreground/70">{l}</span></li>
                 ))}
               </ul>
             </div>
-
             <div>
-              <h3 className="font-body text-sm font-semibold mb-4 opacity-60 uppercase tracking-wider">
-                Contact
-              </h3>
-              <a
-                href="mailto:hello@amuma.ph"
-                className="font-body text-base opacity-80 hover:opacity-100 transition-opacity block"
-              >
-                hello@amuma.ph
-              </a>
+              <p className="font-body text-xs uppercase tracking-[0.15em] text-primary-foreground/40 mb-4">Contact</p>
+              <a href="mailto:hello@amuma.ph" className="font-body text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">hello@amuma.ph</a>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Legal accordion */}
-      <div className="py-12">
-        <div className="container px-6 max-w-2xl mx-auto">
-          {legalSections.map((s) => (
-            <LegalAccordion key={s.title} {...s} />
-          ))}
+      <div className="py-10">
+        <div className="container px-6 max-w-2xl">
+          {legalSections.map((s) => <LegalAccordion key={s.title} {...s} />)}
         </div>
       </div>
 
-      {/* Disclaimers */}
-      <div className="border-t border-primary-foreground/10 py-10">
-        <div className="container px-6 max-w-2xl mx-auto">
+      <div className="border-t border-primary-foreground/10 py-8">
+        <div className="container px-6 max-w-2xl">
           {disclaimers.split("\n\n").map((p, i) => (
-            <p
-              key={i}
-              className="font-body text-[11px] text-primary-foreground/40 leading-relaxed mb-3 last:mb-0"
-            >
-              {p}
-            </p>
+            <p key={i} className="font-body text-[11px] text-primary-foreground/30 leading-relaxed mb-2 last:mb-0">{p}</p>
           ))}
-
-          <p className="font-body text-[11px] text-primary-foreground/40 leading-relaxed mt-6">
-            This website and its contents shall be governed by the laws of the Republic of the
-            Philippines. Any disputes shall be submitted to the exclusive jurisdiction of the courts
-            of Makati City, Philippines.
+          <p className="font-body text-[11px] text-primary-foreground/30 leading-relaxed mt-4">
+            This website and its contents shall be governed by the laws of the Republic of the Philippines. Any disputes shall be submitted to the exclusive jurisdiction of the courts of Makati City, Philippines.
           </p>
-
-          <p className="font-body text-xs text-primary-foreground/50 mt-8 text-center">
-            AMUMA Holding · legal@amuma.ph
-          </p>
-
-          <p className="font-body text-xs text-primary-foreground/30 mt-4 text-center">
-            © 2026 AMUMA Collection. All rights reserved. Dream high, fly low.
-          </p>
+          <p className="font-body text-xs text-primary-foreground/40 mt-6">AMUMA Holding · legal@amuma.ph</p>
+          <p className="font-body text-xs text-primary-foreground/20 mt-3">© 2026 AMUMA Collection. All rights reserved.</p>
         </div>
       </div>
     </footer>

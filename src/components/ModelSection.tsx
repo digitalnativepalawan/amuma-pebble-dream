@@ -1,81 +1,57 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import { Check } from "lucide-react";
-
-const FeatureCard = ({
-  title,
-  borderColor,
-  items,
-}: {
-  title: string;
-  borderColor: string;
-  items: string[];
-}) => {
-  const ref = useScrollReveal();
-  return (
-    <div
-      ref={ref}
-      className={`scroll-reveal card-premium border-l-4 ${borderColor}`}
-    >
-      <h3 className="font-display text-xl font-bold text-foreground mb-5">{title}</h3>
-      <ul className="space-y-3">
-        {items.map((item) => (
-          <li key={item} className="flex items-start gap-3">
-            <Check className="h-5 w-5 text-primary mt-0.5 shrink-0" />
-            <span className="font-body text-base text-foreground/80">{item}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
 
 const ModelSection = () => {
   const headingRef = useScrollReveal();
+  const contentRef = useScrollReveal();
   const flowRef = useScrollReveal();
 
   return (
     <section id="model" className="section-padding bg-background">
       <div className="container px-6">
-        <div ref={headingRef} className="scroll-reveal text-center mb-14">
-          <h2 className="font-display text-4xl sm:text-5xl font-bold text-primary mb-3">
+        <div ref={headingRef} className="scroll-reveal mb-16">
+          <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary uppercase tracking-[0.1em] mb-4">
             The AMUMA Model
           </h2>
-          <p className="font-body text-lg text-muted-foreground">
+          <p className="font-body text-base text-muted-foreground">
             Two ways to belong. One shared vision.
           </p>
         </div>
 
-        <div className="space-y-6 max-w-lg mx-auto mb-10">
-          <FeatureCard
-            title="PEBBLES (Equity)"
-            borderColor="border-primary"
-            items={[
-              "Ownership stake in AMUMA Long Beach, Inc.",
-              "Passive income from 60% of room profits",
-              "Cumulative and transferable",
-              "325,000 total Pebbles (₱100 per Pebble)",
-            ]}
-          />
-          <FeatureCard
-            title="CLUB SHARES (Access)"
-            borderColor="border-secondary"
-            items={[
-              "Membership access to AMUMA properties",
-              "Renewable annually (July 10 – July 9)",
-              "Giftable to friends and family",
-              "Non-cumulative (expires yearly)",
-            ]}
-          />
+        <div ref={contentRef} className="scroll-reveal grid md:grid-cols-2 gap-16 mb-16">
+          {/* Pebbles */}
+          <div>
+            <h3 className="font-display text-xl font-bold text-foreground mb-6 uppercase tracking-wide">
+              Pebbles (Equity)
+            </h3>
+            <div className="space-y-3 font-body text-base text-foreground/70 leading-relaxed">
+              <p>— Ownership stake in AMUMA Long Beach, Inc.</p>
+              <p>— Passive income from 60% of room profits</p>
+              <p>— Cumulative and transferable</p>
+              <p>— 325,000 total Pebbles at ₱100 each</p>
+            </div>
+          </div>
+
+          {/* Club Shares */}
+          <div>
+            <h3 className="font-display text-xl font-bold text-foreground mb-6 uppercase tracking-wide">
+              Club Shares (Access)
+            </h3>
+            <div className="space-y-3 font-body text-base text-foreground/70 leading-relaxed">
+              <p>— Membership access to AMUMA properties</p>
+              <p>— Renewable annually (July 10 – July 9)</p>
+              <p>— Giftable to friends and family</p>
+              <p>— Non-cumulative, expires yearly</p>
+            </div>
+          </div>
         </div>
 
-        <div
-          ref={flowRef}
-          className="scroll-reveal card-premium max-w-lg mx-auto text-center bg-muted/30"
-        >
-          <h3 className="font-display text-xl font-bold text-primary mb-5">Revenue Flow</h3>
-          <div className="space-y-3 font-body text-base text-foreground/80">
-            <p>🏨 Room Revenue → 60% Member Pool → Distributed to Pebble Holders</p>
-            <p>🏨 Room Revenue → 40% Operating Holding → Management & Growth</p>
+        <div className="divider mb-16" />
+
+        <div ref={flowRef} className="scroll-reveal max-w-md">
+          <h3 className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-6">Revenue Flow</h3>
+          <div className="space-y-3 font-body text-base text-foreground/70">
+            <p>Room Revenue → 60% Member Pool → Pebble Holders</p>
+            <p>Room Revenue → 40% Operating Holding → Management</p>
           </div>
         </div>
       </div>
