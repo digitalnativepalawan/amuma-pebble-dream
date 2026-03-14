@@ -5,6 +5,7 @@ import ProofSection from "@/components/ProofSection";
 import ModelSection from "@/components/ModelSection";
 import BuildSection from "@/components/BuildSection";
 import LongBeachSection from "@/components/LongBeachSection";
+import MemberPortalSection from "@/components/MemberPortalSection";
 import RoadmapSection from "@/components/RoadmapSection";
 import TeamSection from "@/components/TeamSection";
 import CalculatorSection from "@/components/CalculatorSection";
@@ -25,6 +26,7 @@ const Index = () => {
       <RoadmapSection />
       <TeamSection />
       <CalculatorSection />
+      <MemberPortalSection />
       <JoinSection />
       <FAQSection />
       <Footer />
