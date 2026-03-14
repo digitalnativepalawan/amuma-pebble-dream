@@ -4,8 +4,6 @@ import { Check } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { Progress } from "@/components/ui/progress";
-import { useToast } from "@/hooks/use-toast";
 
 const benefits = [
   "Name on founding plaque at AMUMA Long Beach",
