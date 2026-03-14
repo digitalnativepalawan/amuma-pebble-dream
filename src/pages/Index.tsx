@@ -26,6 +26,7 @@ const Index = () => {
       <RoadmapSection />
       <TeamSection />
       <CalculatorSection />
+      <MemberPortalSection />
       <JoinSection />
       <FAQSection />
       <Footer />
