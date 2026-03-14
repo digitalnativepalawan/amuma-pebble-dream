@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,69 +6,66 @@
 
 @layer base {
   :root {
-    --background: 43 50% 98%;
-    --foreground: 0 0% 18%;
+    --background: 37 30% 96%;
+    --foreground: 0 0% 12%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 18%;
+    --card: 37 30% 96%;
+    --card-foreground: 0 0% 12%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 18%;
+    --popover: 37 30% 96%;
+    --popover-foreground: 0 0% 12%;
 
-    --primary: 191 72% 21%;
-    --primary-foreground: 43 50% 98%;
+    --primary: 180 78% 17%;
+    --primary-foreground: 37 30% 96%;
 
-    --secondary: 27 50% 64%;
+    --secondary: 30 38% 64%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 40 30% 94%;
-    --muted-foreground: 0 0% 35%;
+    --muted: 30 16% 92%;
+    --muted-foreground: 0 0% 36%;
 
-    --accent: 27 50% 64%;
+    --accent: 30 38% 64%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 40 20% 90%;
-    --input: 40 20% 88%;
-    --ring: 191 72% 21%;
+    --border: 30 16% 85%;
+    --input: 30 16% 85%;
+    --ring: 180 78% 17%;
 
-    --radius: 1rem;
-
-    --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-    --shadow-card-hover: 0 20px 40px -10px rgba(0, 0, 0, 0.08);
+    --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 191 72% 21%;
+    --sidebar-primary: 180 78% 17%;
     --sidebar-primary-foreground: 0 0% 98%;
     --sidebar-accent: 240 4.8% 95.9%;
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 191 72% 21%;
+    --sidebar-ring: 180 78% 17%;
   }
 
   .dark {
     --background: 0 0% 7%;
-    --foreground: 43 50% 98%;
+    --foreground: 37 30% 96%;
 
-    --card: 0 0% 12%;
-    --card-foreground: 43 50% 98%;
+    --card: 0 0% 10%;
+    --card-foreground: 37 30% 96%;
 
-    --popover: 0 0% 12%;
-    --popover-foreground: 43 50% 98%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 37 30% 96%;
 
-    --primary: 191 50% 40%;
+    --primary: 180 50% 30%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 27 50% 50%;
+    --secondary: 30 38% 50%;
     --secondary-foreground: 0 0% 100%;
 
     --muted: 0 0% 18%;
     --muted-foreground: 0 0% 60%;
 
-    --accent: 27 50% 50%;
+    --accent: 30 38% 50%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62.8% 30.6%;
@@ -76,16 +73,16 @@
 
     --border: 0 0% 20%;
     --input: 0 0% 20%;
-    --ring: 191 50% 40%;
+    --ring: 180 50% 30%;
 
     --sidebar-background: 0 0% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 191 50% 40%;
+    --sidebar-primary: 180 50% 30%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 0 0% 15%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 0 0% 20%;
-    --sidebar-ring: 191 50% 40%;
+    --sidebar-ring: 180 50% 30%;
   }
 }
 
@@ -105,26 +102,15 @@
 
 @layer utilities {
   .scroll-reveal {
-    @apply opacity-0 translate-y-8 transition-all duration-700 ease-out;
+    @apply opacity-0 translate-y-6 transition-all duration-700 ease-out;
   }
   .scroll-reveal.revealed {
     @apply opacity-100 translate-y-0;
   }
-  .card-premium {
-    @apply bg-card rounded-2xl p-6 border border-border/20;
-    box-shadow: var(--shadow-card);
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
-  }
-  .card-premium:hover {
-    box-shadow: var(--shadow-card-hover);
-  }
-  .btn-primary {
-    @apply bg-primary text-primary-foreground font-body font-semibold rounded-full transition-all duration-200 hover:scale-105 hover:shadow-lg;
-  }
-  .btn-outline {
-    @apply border-2 border-primary text-primary font-body font-medium rounded-full transition-all duration-200 hover:bg-primary hover:text-primary-foreground;
+  .divider {
+    @apply border-b border-border;
   }
   .section-padding {
-    @apply py-24;
+    @apply py-20;
   }
 }
