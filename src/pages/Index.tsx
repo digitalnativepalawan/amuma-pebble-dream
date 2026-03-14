@@ -2,6 +2,11 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import VisionSection from "@/components/VisionSection";
 import ProofSection from "@/components/ProofSection";
+import ModelSection from "@/components/ModelSection";
+import BuildSection from "@/components/BuildSection";
+import LongBeachSection from "@/components/LongBeachSection";
+import RoadmapSection from "@/components/RoadmapSection";
+import TeamSection from "@/components/TeamSection";
 
 const Index = () => {
   return (
@@ -10,9 +15,14 @@ const Index = () => {
       <HeroSection />
       <VisionSection />
       <ProofSection />
+      <ModelSection />
+      <BuildSection />
+      <LongBeachSection />
+      <RoadmapSection />
+      <TeamSection />
 
-      {/* Placeholder Join section anchor */}
-      <section id="join" className="py-20 bg-background">
+      {/* Join section */}
+      <section id="join" className="py-20 bg-muted/40">
         <div className="container px-6 text-center">
           <h2 className="font-display text-3xl font-bold text-primary mb-4">
             Join the Pebble Circle
