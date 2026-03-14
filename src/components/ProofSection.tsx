@@ -47,55 +47,52 @@ const ProofSection = () => {
   const metricsRef = useScrollReveal();
 
   return (
-    <section id="proof" className="py-20 bg-muted/40">
+    <section id="proof" className="section-padding bg-muted/30">
       <div className="container px-6">
-        <div ref={headingRef} className="scroll-reveal text-center mb-10">
-          <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary mb-2">
+        <div ref={headingRef} className="scroll-reveal text-center mb-12">
+          <h2 className="font-display text-4xl sm:text-5xl font-bold text-primary mb-3">
             The Proof: Baia
           </h2>
         </div>
 
         {/* Carousel */}
-        <div className="max-w-md mx-auto mb-10">
+        <div className="max-w-md mx-auto mb-12">
           <Carousel className="w-full">
             <CarouselContent>
               {images.map((img) => (
                 <CarouselItem key={img.label}>
-                  <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-primary/10 flex items-center justify-center">
+                  <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-primary/5 flex items-center justify-center">
                     <div className="text-center text-muted-foreground">
-                      <div className="text-4xl mb-2">📷</div>
-                      <p className="font-body text-sm">{img.label}</p>
+                      <div className="text-5xl mb-3">📷</div>
+                      <p className="font-body text-base">{img.label}</p>
                     </div>
                   </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="-left-4 bg-card border-border" />
-            <CarouselNext className="-right-4 bg-card border-border" />
+            <CarouselPrevious className="-left-4 bg-card border-border/30 hover:bg-primary hover:text-primary-foreground transition-colors" />
+            <CarouselNext className="-right-4 bg-card border-border/30 hover:bg-primary hover:text-primary-foreground transition-colors" />
           </Carousel>
         </div>
 
         {/* Booking scores */}
-        <div ref={scoresRef} className="scroll-reveal flex justify-center gap-4 mb-10">
+        <div ref={scoresRef} className="scroll-reveal flex justify-center gap-4 sm:gap-6 mb-12">
           {scores.map((s) => (
             <div
               key={s.label}
-              className="bg-card rounded-2xl px-5 py-3 text-center shadow-sm border border-border/30"
+              className="card-premium px-6 py-4 text-center"
             >
-              <p className="font-body text-xs text-muted-foreground">{s.label}</p>
-              <p className="font-display text-2xl font-bold text-primary">{s.score}</p>
+              <p className="font-body text-xs text-muted-foreground mb-1">{s.label}</p>
+              <p className="font-display text-3xl font-bold text-primary">{s.score}</p>
             </div>
           ))}
         </div>
 
         {/* Reviews */}
-        <div ref={reviewsRef} className="scroll-reveal space-y-4 max-w-lg mx-auto mb-10">
+        <div ref={reviewsRef} className="scroll-reveal space-y-5 max-w-lg mx-auto mb-12">
           {reviews.map((r) => (
-            <div
-              key={r.author}
-              className="bg-card rounded-2xl p-6 shadow-sm border border-border/30"
-            >
-              <p className="font-body text-foreground/80 italic leading-relaxed mb-3">
+            <div key={r.author} className="card-premium">
+              <p className="font-body text-base text-foreground/80 italic leading-relaxed mb-4">
                 "{r.quote}"
               </p>
               <p className="font-body text-sm font-semibold text-primary">
@@ -108,11 +105,8 @@ const ProofSection = () => {
         {/* Metrics */}
         <div ref={metricsRef} className="scroll-reveal space-y-3 max-w-lg mx-auto">
           {metrics.map((m) => (
-            <div
-              key={m}
-              className="bg-card rounded-2xl px-6 py-4 shadow-sm border border-border/30 text-center"
-            >
-              <p className="font-body text-sm font-medium text-foreground">{m}</p>
+            <div key={m} className="card-premium text-center">
+              <p className="font-body text-base font-medium text-foreground">{m}</p>
             </div>
           ))}
         </div>

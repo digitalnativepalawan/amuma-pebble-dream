@@ -6,22 +6,21 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Placeholder background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/70 to-secondary/50" />
-      <div className="absolute inset-0 bg-[url('/placeholder.svg')] bg-cover bg-center opacity-20" />
-      <div className="absolute inset-0 bg-foreground/50" />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/90 via-primary/70 to-secondary/40" />
+      <div className="absolute inset-0 bg-[url('/placeholder.svg')] bg-cover bg-center opacity-15" />
+      <div className="absolute inset-0 bg-foreground/40" />
 
       <div className="relative z-10 container text-center px-6 py-20">
-        <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-primary-foreground leading-tight mb-6 max-w-3xl mx-auto">
+        <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-primary-foreground leading-tight mb-8 max-w-4xl mx-auto tracking-tight">
           AMUMA Collection.{" "}
-          <span className="block mt-2">Barefoot Boutique Resorts in Hidden Gems.</span>
+          <span className="block mt-3">Barefoot Boutique Resorts in Hidden Gems.</span>
         </h1>
-        <p className="font-body text-lg sm:text-xl text-primary-foreground/80 mb-10 tracking-wide italic">
+        <p className="font-body text-lg sm:text-xl md:text-2xl text-secondary mb-12 tracking-wider italic font-light">
           Dream high, fly low.
         </p>
         <button
           onClick={scrollToJoin}
-          className="bg-primary text-primary-foreground font-body font-semibold text-sm sm:text-base px-8 py-4 rounded-full hover:bg-primary/90 transition-colors shadow-lg shadow-primary/30"
+          className="btn-primary text-sm sm:text-base px-10 py-4 shadow-lg shadow-primary/20"
         >
           Become a Founding Pebble Holder
         </button>

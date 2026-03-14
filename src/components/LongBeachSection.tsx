@@ -33,16 +33,16 @@ const phases = [
 const UnitCard = ({ icon, name, count, rate, features }: typeof units[number]) => {
   const ref = useScrollReveal();
   return (
-    <div ref={ref} className="scroll-reveal bg-card rounded-2xl p-6 shadow-sm border border-border/30">
-      <div className="flex items-center gap-3 mb-3">
+    <div ref={ref} className="scroll-reveal card-premium">
+      <div className="flex items-center gap-3 mb-4">
         <span className="text-3xl">{icon}</span>
-        <h3 className="font-display text-lg font-bold text-foreground">
+        <h3 className="font-display text-xl font-bold text-foreground">
           {name}{" "}
           <span className="font-body text-sm font-normal text-muted-foreground">({count})</span>
         </h3>
       </div>
-      <p className="font-display text-2xl font-bold text-primary mb-2">{rate}</p>
-      <p className="font-body text-sm text-foreground/70">{features}</p>
+      <p className="font-display text-3xl font-bold text-primary mb-3">{rate}</p>
+      <p className="font-body text-base text-foreground/70 leading-relaxed">{features}</p>
     </div>
   );
 };
@@ -52,33 +52,33 @@ const LongBeachSection = () => {
   const phasesRef = useScrollReveal();
 
   return (
-    <section id="longbeach" className="py-20 bg-background">
+    <section id="longbeach" className="section-padding bg-background">
       <div className="container px-6">
-        <div ref={headingRef} className="scroll-reveal text-center mb-10">
-          <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary mb-2">
+        <div ref={headingRef} className="scroll-reveal text-center mb-14">
+          <h2 className="font-display text-4xl sm:text-5xl font-bold text-primary mb-3">
             AMUMA Long Beach
           </h2>
-          <p className="font-body text-muted-foreground">San Vicente, Palawan · 2,000 sqm</p>
-          <p className="font-body text-sm text-muted-foreground mt-1">
+          <p className="font-body text-lg text-muted-foreground">San Vicente, Palawan · 2,000 sqm</p>
+          <p className="font-body text-base text-muted-foreground mt-2 italic">
             Mirroring Baia's proven aesthetic
           </p>
         </div>
 
-        <div className="space-y-4 max-w-lg mx-auto mb-6">
+        <div className="space-y-6 max-w-lg mx-auto mb-8">
           {units.map((u) => (
             <UnitCard key={u.name} {...u} />
           ))}
         </div>
 
-        <div className="text-center mb-8">
-          <Badge variant="secondary" className="text-sm px-4 py-1">Total Keys: 9</Badge>
+        <div className="text-center mb-10">
+          <Badge variant="secondary" className="text-base px-6 py-2 font-body">Total Keys: 9</Badge>
         </div>
 
-        <div ref={phasesRef} className="scroll-reveal space-y-3 max-w-lg mx-auto">
+        <div ref={phasesRef} className="scroll-reveal space-y-4 max-w-lg mx-auto">
           {phases.map((p) => (
-            <div key={p.label} className="bg-muted/40 rounded-2xl px-6 py-4 border border-border/30">
-              <p className="font-display text-sm font-bold text-primary">{p.label}</p>
-              <p className="font-body text-sm text-foreground/70">{p.detail}</p>
+            <div key={p.label} className="card-premium bg-muted/20">
+              <p className="font-display text-base font-bold text-primary mb-1">{p.label}</p>
+              <p className="font-body text-base text-foreground/70">{p.detail}</p>
             </div>
           ))}
         </div>

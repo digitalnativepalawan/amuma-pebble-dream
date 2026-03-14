@@ -45,26 +45,27 @@ const FAQSection = () => {
   const headingRef = useScrollReveal();
 
   return (
-    <section id="faq" className="py-20 bg-muted/40">
+    <section id="faq" className="section-padding bg-muted/30">
       <div className="container px-6">
-        <div ref={headingRef} className="scroll-reveal text-center mb-10">
-          <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary mb-2">
+        <div ref={headingRef} className="scroll-reveal text-center mb-14">
+          <h2 className="font-display text-4xl sm:text-5xl font-bold text-primary mb-3">
             Frequently Asked Questions
           </h2>
         </div>
 
         <div className="max-w-lg mx-auto">
-          <Accordion type="single" collapsible className="space-y-2">
+          <Accordion type="single" collapsible className="space-y-3">
             {faqs.map((faq, i) => (
               <AccordionItem
                 key={i}
                 value={`faq-${i}`}
-                className="bg-card rounded-2xl border border-border/30 px-5 overflow-hidden"
+                className="bg-card rounded-2xl border border-border/20 px-6 overflow-hidden"
+                style={{ boxShadow: 'var(--shadow-card)' }}
               >
-                <AccordionTrigger className="font-body text-sm font-medium text-foreground hover:text-primary py-4 hover:no-underline">
+                <AccordionTrigger className="font-body text-base font-medium text-foreground hover:text-primary py-5 hover:no-underline">
                   {faq.q}
                 </AccordionTrigger>
-                <AccordionContent className="font-body text-sm text-foreground/70 pb-4">
+                <AccordionContent className="font-body text-base text-foreground/70 pb-5 leading-relaxed">
                   {faq.a}
                 </AccordionContent>
               </AccordionItem>

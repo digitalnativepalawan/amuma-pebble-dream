@@ -18,15 +18,15 @@ const StatCard = ({
   return (
     <div
       ref={ref}
-      className="bg-card rounded-2xl p-5 shadow-sm border border-border/30 relative overflow-hidden"
+      className="card-premium relative overflow-hidden"
     >
       <div className="absolute top-0 left-0 right-0 h-1 bg-secondary" />
-      <div className="text-2xl mb-2">{emoji}</div>
-      <div className="font-display text-3xl font-bold text-primary">
+      <div className="text-2xl mb-3">{emoji}</div>
+      <div className="font-display text-3xl sm:text-4xl font-bold text-primary">
         {animatedValue.toLocaleString()}
         {suffix && <span className="text-lg ml-1">{suffix}</span>}
       </div>
-      <p className="font-body text-sm text-muted-foreground mt-1">{label}</p>
+      <p className="font-body text-sm text-muted-foreground mt-2">{label}</p>
     </div>
   );
 };
@@ -35,18 +35,18 @@ const VisionSection = () => {
   const revealRef = useScrollReveal();
 
   return (
-    <section id="vision" className="py-20 bg-background">
+    <section id="vision" className="section-padding bg-background">
       <div className="container px-6">
-        <div ref={revealRef} className="scroll-reveal text-center mb-12">
-          <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary mb-4">
+        <div ref={revealRef} className="scroll-reveal text-center mb-14">
+          <h2 className="font-display text-4xl sm:text-5xl font-bold text-primary mb-4">
             The Vision
           </h2>
-          <p className="font-body text-muted-foreground max-w-xl mx-auto leading-relaxed">
+          <p className="font-body text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
             High quality services in hidden gems locations, not overcrowded with mass tourism.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 max-w-lg mx-auto">
+        <div className="grid grid-cols-2 gap-4 sm:gap-6 max-w-lg mx-auto">
           <StatCard emoji="⭐" value={9.6} label="Baia Guest Score" />
           <StatCard emoji="📅" value={9} suffix=" Months" label="High Season" />
           <StatCard emoji="🌴" value={2000} suffix=" sqm" label="First Property" />

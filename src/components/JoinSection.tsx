@@ -81,46 +81,46 @@ const JoinSection = () => {
   };
 
   const inputClass =
-    "w-full rounded-full border border-border bg-background px-5 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring";
+    "w-full rounded-full border border-border bg-background px-6 py-3.5 font-body text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors";
 
   return (
-    <section id="join" className="py-20 bg-background">
+    <section id="join" className="section-padding bg-background">
       <div className="container px-6">
-        <div ref={headingRef} className="scroll-reveal text-center mb-10">
-          <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary mb-2">
+        <div ref={headingRef} className="scroll-reveal text-center mb-14">
+          <h2 className="font-display text-4xl sm:text-5xl font-bold text-primary mb-3">
             Join the Kickstarter Circle
           </h2>
-          <p className="font-body text-muted-foreground">20 exclusive spots at ₱500,000</p>
+          <p className="font-body text-lg text-muted-foreground">20 exclusive spots at ₱500,000</p>
         </div>
 
         <div className="max-w-lg mx-auto space-y-6">
           {/* Offer summary */}
-          <div ref={offerRef} className="scroll-reveal bg-card rounded-2xl p-6 shadow-sm border-l-4 border-secondary">
-            <div className="space-y-2 font-body text-sm text-foreground/80 mb-4">
+          <div ref={offerRef} className="scroll-reveal card-premium border-l-4 border-secondary">
+            <div className="space-y-2.5 font-body text-base text-foreground/80 mb-5">
               <p>₱500,000 investment</p>
               <p>5,000 Pebbles (1.54% ownership)</p>
               <p>~₱79,000 annual distribution</p>
             </div>
-            <p className="font-body text-sm font-semibold text-primary mb-2">20 spots remaining</p>
-            <Progress value={0} className="h-2" />
+            <p className="font-body text-base font-semibold text-primary mb-3">20 spots remaining</p>
+            <Progress value={0} className="h-2.5" />
           </div>
 
           {/* Benefits */}
-          <div ref={benefitsRef} className="scroll-reveal bg-card rounded-2xl p-6 shadow-sm border border-border/30">
-            <h3 className="font-display text-lg font-bold text-foreground mb-4">Founder Benefits</h3>
-            <ul className="space-y-3">
+          <div ref={benefitsRef} className="scroll-reveal card-premium">
+            <h3 className="font-display text-xl font-bold text-foreground mb-5">Founder Benefits</h3>
+            <ul className="space-y-3.5">
               {benefits.map((b) => (
                 <li key={b} className="flex items-start gap-3">
                   <Check className="h-5 w-5 text-primary mt-0.5 shrink-0" />
-                  <span className="font-body text-sm text-foreground/80">{b}</span>
+                  <span className="font-body text-base text-foreground/80">{b}</span>
                 </li>
               ))}
             </ul>
           </div>
 
           {/* Application form */}
-          <div ref={formRef} className="scroll-reveal bg-card rounded-2xl p-6 shadow-sm border border-border/30">
-            <h3 className="font-display text-lg font-bold text-foreground mb-6">Apply Now</h3>
+          <div ref={formRef} className="scroll-reveal card-premium">
+            <h3 className="font-display text-xl font-bold text-foreground mb-6">Apply Now</h3>
             <form onSubmit={handleSubmit} className="space-y-4">
               <input
                 type="text"
@@ -176,13 +176,13 @@ const JoinSection = () => {
                 placeholder="Message (optional)"
                 value={form.message}
                 onChange={(e) => update("message", e.target.value)}
-                className="w-full rounded-2xl border border-border bg-background px-5 py-3 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring min-h-[100px] resize-y"
+                className="w-full rounded-2xl border border-border bg-background px-6 py-3.5 font-body text-base text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-colors min-h-[120px] resize-y"
                 maxLength={1000}
               />
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full bg-primary text-primary-foreground font-body font-semibold text-sm px-8 py-4 rounded-full hover:bg-primary/90 transition-colors disabled:opacity-50"
+                className="w-full btn-primary text-base px-8 py-4 disabled:opacity-50 disabled:hover:scale-100"
               >
                 {submitting ? "Submitting..." : "Submit Application"}
               </button>
@@ -190,11 +190,11 @@ const JoinSection = () => {
           </div>
 
           {/* Timeline */}
-          <div ref={timelineRef} className="scroll-reveal bg-muted/40 rounded-2xl p-6">
+          <div ref={timelineRef} className="scroll-reveal card-premium bg-muted/20">
             {timelineItems.map((t) => (
-              <div key={t.label} className="flex justify-between py-2 border-b border-border/30 last:border-0">
-                <span className="font-body text-sm text-muted-foreground">{t.label}</span>
-                <span className="font-body text-sm font-semibold text-foreground">{t.value}</span>
+              <div key={t.label} className="flex justify-between py-3 border-b border-border/20 last:border-0">
+                <span className="font-body text-base text-muted-foreground">{t.label}</span>
+                <span className="font-body text-base font-semibold text-foreground">{t.value}</span>
               </div>
             ))}
           </div>
