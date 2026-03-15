@@ -256,15 +256,17 @@ const AdminMediaBlock = ({ section, slotKey, className = "" }: AdminMediaBlockPr
 
       {/* URL inputs */}
       {showVideoInput && (
-        <div className="mt-3 flex gap-2">
+        <div className="mt-3 flex flex-col sm:flex-row gap-2">
           <input
             value={videoUrl}
             onChange={(e) => setVideoUrl(e.target.value)}
             placeholder="YouTube URL"
             className="flex-1 border border-border bg-background rounded-md px-3 py-1.5 font-body text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary"
           />
-          <button onClick={handleAddVideo} className="font-body text-xs px-3 py-1.5 bg-primary text-primary-foreground rounded-md">Add</button>
-          <button onClick={() => { setShowVideoInput(false); setVideoUrl(""); }} className="font-body text-xs px-3 py-1.5 text-muted-foreground">Cancel</button>
+          <div className="flex gap-2">
+            <button onClick={handleAddVideo} className="font-body text-xs px-3 py-1.5 bg-primary text-primary-foreground rounded-md">Add</button>
+            <button onClick={() => { setShowVideoInput(false); setVideoUrl(""); }} className="font-body text-xs px-3 py-1.5 text-muted-foreground">Cancel</button>
+          </div>
         </div>
       )}
       {showDriveInput && (
