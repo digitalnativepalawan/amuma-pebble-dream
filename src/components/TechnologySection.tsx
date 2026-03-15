@@ -1,5 +1,6 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import EditableField from "@/components/EditableField";
+import AdminMediaBlock from "@/components/AdminMediaBlock";
 import {
   Table,
   TableBody,
