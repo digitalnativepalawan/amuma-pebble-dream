@@ -136,7 +136,7 @@ export const AdminProvider = ({ children }: { children: ReactNode }) => {
       const optimized = await compressImage(file);
       const ext = optimized.name.split(".").pop();
       const path = `${section}/${key}-${Date.now()}.${ext}`;
-      const { error } = await supabase.storage.from("site-images").upload(path, file);
+      const { error } = await supabase.storage.from("site-images").upload(path, optimized);
       if (error) throw error;
       const { data: urlData } = supabase.storage.from("site-images").getPublicUrl(path);
       const publicUrl = urlData.publicUrl;
