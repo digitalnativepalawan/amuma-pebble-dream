@@ -27,6 +27,7 @@ interface AdminContextType {
   getImage: (section: string, key: string) => string | null;
   updateContent: (section: string, key: string, value: string) => Promise<void>;
   uploadImage: (section: string, key: string, file: File) => Promise<string | null>;
+  deleteImage: (section: string, key: string) => Promise<void>;
   saving: boolean;
   // Media methods
   getMedia: (section: string, slotKey: string) => MediaItem[];
