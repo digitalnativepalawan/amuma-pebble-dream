@@ -11,26 +11,43 @@ import {
 } from "@/components/ui/table";
 
 const ComparisonTable = ({ headers, rows }: { headers: string[]; rows: string[][] }) => (
-  <div className="overflow-x-auto">
-    <Table>
-      <TableHeader>
-        <TableRow className="border-border">
-          {headers.map((h) => (
-            <TableHead key={h} className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground">{h}</TableHead>
-          ))}
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {rows.map((row, i) => (
-          <TableRow key={i} className="border-border hover:bg-transparent">
-            {row.map((cell, j) => (
-              <TableCell key={j} className={`font-body text-sm leading-relaxed ${j === 0 ? "text-foreground font-medium" : "text-foreground/70"}`}>{cell}</TableCell>
+  <>
+    {/* Desktop table */}
+    <div className="hidden sm:block">
+      <Table>
+        <TableHeader>
+          <TableRow className="border-border">
+            {headers.map((h) => (
+              <TableHead key={h} className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground">{h}</TableHead>
             ))}
           </TableRow>
-        ))}
-      </TableBody>
-    </Table>
-  </div>
+        </TableHeader>
+        <TableBody>
+          {rows.map((row, i) => (
+            <TableRow key={i} className="border-border hover:bg-transparent">
+              {row.map((cell, j) => (
+                <TableCell key={j} className={`font-body text-sm leading-relaxed ${j === 0 ? "text-foreground font-medium" : "text-foreground/70"}`}>{cell}</TableCell>
+              ))}
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
+
+    {/* Mobile stacked cards */}
+    <div className="sm:hidden space-y-4">
+      {rows.map((row, i) => (
+        <div key={i} className="border border-border rounded-lg p-4 space-y-2">
+          {row.map((cell, j) => (
+            <div key={j} className="flex justify-between items-baseline">
+              <span className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground">{headers[j]}</span>
+              <span className={`font-body text-sm ${j === 0 ? "text-foreground font-medium" : "text-foreground/70"}`}>{cell}</span>
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  </>
 );
 
 const SubHeading = ({ children }: { children: React.ReactNode }) => (
