@@ -50,6 +50,33 @@ export type Database = {
         }
         Relationships: []
       }
+      site_content: {
+        Row: {
+          field_key: string
+          id: string
+          image_url: string | null
+          section_id: string
+          text_value: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          field_key: string
+          id?: string
+          image_url?: string | null
+          section_id: string
+          text_value?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          field_key?: string
+          id?: string
+          image_url?: string | null
+          section_id?: string
+          text_value?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
