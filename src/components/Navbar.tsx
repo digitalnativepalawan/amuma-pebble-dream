@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const links = [
-  { label: "Vision", href: "#vision" },
-  { label: "Proof", href: "#proof" },
-  { label: "Technology", href: "#technology" },
-  { label: "Model", href: "#model" },
-  { label: "Long Beach", href: "#longbeach" },
+  { label: "Circle", href: "#vision" },
+  { label: "Destinations", href: "#proof" },
+  { label: "Investment", href: "#technology" },
+  { label: "Experience", href: "#model" },
+  { label: "Palawan", href: "#build" },
+  { label: "Retreat", href: "#longbeach" },
   { label: "Calculator", href: "#calculator" },
-  { label: "Portal", href: "#portal" },
   { label: "Roadmap", href: "#roadmap" },
   { label: "Team", href: "#team" },
   { label: "Join", href: "#join" },
@@ -66,6 +67,13 @@ const Navbar = () => {
                 {link.label}
               </button>
             ))}
+            <Link
+              to="/admin"
+              onClick={() => setOpen(false)}
+              className="text-left px-0 py-3 border-b border-border text-muted-foreground hover:text-primary transition-colors font-body text-xs tracking-wide uppercase mt-4"
+            >
+              Admin
+            </Link>
           </nav>
         </SheetContent>
       </Sheet>

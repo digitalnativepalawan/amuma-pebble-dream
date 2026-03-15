@@ -1,4 +1,5 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import EditableField from "@/components/EditableField";
 import {
   Table,
   TableBody,
@@ -36,9 +37,10 @@ const SubHeading = ({ children }: { children: React.ReactNode }) => (
 );
 
 const TechnologySection = () => {
-  const ownershipRef = useScrollReveal();
+  const pebblesRef = useScrollReveal();
+  const stakesRef = useScrollReveal();
   const tiersRef = useScrollReveal();
-  const pebbleUsageRef = useScrollReveal();
+  const usageRef = useScrollReveal();
   const revenueRef = useScrollReveal();
   const returnsRef = useScrollReveal();
   const expansionRef = useScrollReveal();
@@ -46,28 +48,31 @@ const TechnologySection = () => {
 
   return (
     <>
-      {/* ── SECTION 1: MEMBERSHIP SHARES ── */}
+      {/* ── SECTION 1: PEBBLES SYSTEM ── */}
       <section id="technology" className="section-padding bg-background">
-        <div ref={ownershipRef} className="scroll-reveal container px-6">
+        <div ref={pebblesRef} className="scroll-reveal container px-6">
           <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary uppercase tracking-[0.1em] mb-4">
-            Membership Shares
+            <EditableField section="pebbles" field="title" fallback="Pebbles" />
           </h2>
-          <p className="font-body text-base text-muted-foreground mb-12">How ownership works.</p>
+          <p className="font-body text-base text-muted-foreground mb-12">Annual experience credits.</p>
 
           <div className="max-w-lg space-y-6">
             <p className="font-body text-base text-foreground/70 leading-relaxed">
-              Ownership in each retreat is represented by Membership Shares.
-            </p>
-            <p className="font-body text-base text-foreground/70 leading-relaxed">
-              These shares allow members to:
+              <EditableField
+                section="pebbles"
+                field="body"
+                fallback="Pebbles are annual experience credits. They can be used for:"
+              />
             </p>
             <div className="space-y-3 font-body text-base text-foreground/70 leading-relaxed">
-              <p>— Participate in the rental income of the retreat</p>
-              <p>— Receive annual stay credits called Pebbles</p>
-              <p>— Gain priority access to future AMUMA destinations</p>
+              <p>— Accommodation</p>
+              <p>— Dining</p>
+              <p>— Excursions</p>
+              <p>— Boat trips</p>
+              <p>— Spa treatments</p>
             </div>
-            <p className="font-body text-base text-foreground/70 leading-relaxed">
-              Pebbles function as experience credits used for accommodation and curated experiences.
+            <p className="font-body text-sm text-muted-foreground">
+              Pebbles renew every year.
             </p>
           </div>
         </div>
@@ -75,7 +80,34 @@ const TechnologySection = () => {
 
       <div className="container px-6"><div className="divider" /></div>
 
-      {/* ── SECTION 2: INVESTMENT TIERS ── */}
+      {/* ── SECTION 2: MEMBERSHIP STAKES ── */}
+      <section id="stakes" className="section-padding bg-background">
+        <div ref={stakesRef} className="scroll-reveal container px-6">
+          <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary uppercase tracking-[0.1em] mb-4">
+            <EditableField section="stakes" field="title" fallback="Membership Stakes" />
+          </h2>
+          <p className="font-body text-base text-muted-foreground mb-12">Ownership and lifestyle.</p>
+
+          <div className="max-w-lg space-y-6">
+            <p className="font-body text-base text-foreground/70 leading-relaxed">
+              <EditableField
+                section="stakes"
+                field="body"
+                fallback="Members participate in the creation of each retreat through Membership Stakes. Members therefore become both:"
+                multiline
+              />
+            </p>
+            <div className="space-y-3 font-body text-base text-foreground/70 leading-relaxed">
+              <p>— Participants in the lifestyle</p>
+              <p>— Partners in the economic success of the retreats</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="container px-6"><div className="divider" /></div>
+
+      {/* ── SECTION 3: INVESTMENT TIERS ── */}
       <section id="tiers" className="section-padding bg-background">
         <div ref={tiersRef} className="scroll-reveal container px-6">
           <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary uppercase tracking-[0.1em] mb-4">
@@ -84,30 +116,30 @@ const TechnologySection = () => {
           <p className="font-body text-base text-muted-foreground mb-12">Choose your level of participation.</p>
 
           <ComparisonTable
-            headers={["Tier", "Investment", "Shares", "Annual Pebbles"]}
+            headers={["Tier", "Investment", "Shares", "Pebbles"]}
             rows={[
               ["Nova", "₱500,000", "50", "1,000"],
-              ["Aurora", "₱1,200,000", "120", "2,400"],
-              ["Orion", "₱2,000,000", "210", "4,200"],
-              ["Polaris", "₱4,000,000", "440", "8,800"],
+              ["Aurora", "₱1,200,000", "120", "2,200"],
+              ["Orion", "₱2,000,000", "210", "4,000"],
+              ["Polaris", "₱4,000,000", "440", "8,000"],
             ]}
           />
 
           <p className="font-body text-sm text-muted-foreground mt-8 max-w-lg">
-            The first 20 Nova investors form the Founding Circle and receive early access to future AMUMA retreats.
+            The first 20 Nova investors become the Founding Circle.
           </p>
         </div>
       </section>
 
       <div className="container px-6"><div className="divider" /></div>
 
-      {/* ── SECTION 3: PEBBLE USAGE ── */}
-      <section id="pebble-usage" className="section-padding bg-background">
-        <div ref={pebbleUsageRef} className="scroll-reveal container px-6">
+      {/* ── SECTION 4: ACCOMMODATION USAGE ── */}
+      <section id="accommodation" className="section-padding bg-background">
+        <div ref={usageRef} className="scroll-reveal container px-6">
           <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary uppercase tracking-[0.1em] mb-4">
-            Pebble Usage
+            Accommodation Usage
           </h2>
-          <p className="font-body text-base text-muted-foreground mb-12">How to use your experience credits.</p>
+          <p className="font-body text-base text-muted-foreground mb-12">Pebbles per night.</p>
 
           <div className="max-w-lg space-y-12">
             <div>
@@ -133,17 +165,13 @@ const TechnologySection = () => {
                 ]}
               />
             </div>
-
-            <p className="font-body text-sm text-muted-foreground">
-              Pebbles renew annually and encourage members to return and continue their journey.
-            </p>
           </div>
         </div>
       </section>
 
       <div className="container px-6"><div className="divider" /></div>
 
-      {/* ── SECTION 4: REVENUE MODEL ── */}
+      {/* ── SECTION 5: REVENUE MODEL ── */}
       <section id="revenue" className="section-padding bg-background">
         <div ref={revenueRef} className="scroll-reveal container px-6">
           <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary uppercase tracking-[0.1em] mb-4">
@@ -179,11 +207,11 @@ const TechnologySection = () => {
 
       <div className="container px-6"><div className="divider" /></div>
 
-      {/* ── SECTION 5: EXPECTED RETURNS ── */}
+      {/* ── SECTION 6: PROJECTED RETURNS ── */}
       <section id="returns" className="section-padding bg-background">
         <div ref={returnsRef} className="scroll-reveal container px-6">
           <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary uppercase tracking-[0.1em] mb-4">
-            Expected Returns
+            Projected Returns
           </h2>
           <p className="font-body text-base text-muted-foreground mb-12">Conservative assumptions.</p>
 
@@ -195,12 +223,9 @@ const TechnologySection = () => {
             </div>
 
             <div className="mt-8">
-              <p className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-3">Projected Investor Return</p>
+              <p className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-3">Projected Annual ROI</p>
               <p className="font-display text-4xl sm:text-5xl font-normal text-primary leading-none">
-                17% – 20%
-              </p>
-              <p className="font-body text-sm text-muted-foreground mt-3">
-                Annual ROI depending on occupancy growth and operational performance.
+                17–20%
               </p>
             </div>
           </div>
@@ -209,19 +234,15 @@ const TechnologySection = () => {
 
       <div className="container px-6"><div className="divider" /></div>
 
-      {/* ── SECTION 6: EXPANSION VISION ── */}
+      {/* ── SECTION 7: FUTURE DESTINATIONS ── */}
       <section id="expansion" className="section-padding bg-background">
         <div ref={expansionRef} className="scroll-reveal container px-6">
           <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary uppercase tracking-[0.1em] mb-4">
-            Expansion
+            Future Destinations
           </h2>
           <p className="font-body text-base text-muted-foreground mb-12">A growing constellation of retreats.</p>
 
           <div className="max-w-lg">
-            <p className="font-body text-base text-foreground/70 leading-relaxed mb-10">
-              AMUMA is designed as a growing constellation of retreats. Future destinations include:
-            </p>
-
             <div className="grid grid-cols-2 gap-12">
               <div>
                 <SubHeading>Philippines</SubHeading>
@@ -242,17 +263,13 @@ const TechnologySection = () => {
                 </div>
               </div>
             </div>
-
-            <p className="font-body text-sm text-muted-foreground mt-10">
-              Members joining early participate in the growth of the entire network.
-            </p>
           </div>
         </div>
       </section>
 
       <div className="container px-6"><div className="divider" /></div>
 
-      {/* ── SECTION 7: FLYWHEEL ── */}
+      {/* ── SECTION 8: FLYWHEEL ── */}
       <section id="flywheel" className="section-padding bg-background">
         <div ref={flywheelRef} className="scroll-reveal container px-6">
           <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary uppercase tracking-[0.1em] mb-12">

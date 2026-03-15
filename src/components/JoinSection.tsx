@@ -80,7 +80,7 @@ const JoinSection = () => {
           <div className="mb-12">
             <div className="space-y-2 font-body text-base text-foreground/70 mb-6">
               <p>— ₱500,000 investment (Nova tier)</p>
-              <p>— 50 Membership Shares</p>
+              <p>— 50 Membership Stakes</p>
               <p>— 1,000 Annual Pebbles</p>
               <p>— Early access to future AMUMA retreats</p>
             </div>
