@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { Slider } from "@/components/ui/slider";
 import { Progress } from "@/components/ui/progress";
+import AdminMediaBlock from "@/components/AdminMediaBlock";
 
 const tiers = [
   { name: "Nova", investment: 500_000, shares: 50, pebbles: 1_000 },
