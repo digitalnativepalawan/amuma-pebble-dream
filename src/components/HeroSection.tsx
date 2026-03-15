@@ -1,5 +1,6 @@
 import EditableField from "@/components/EditableField";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
+import AdminMediaBlock from "@/components/AdminMediaBlock";
 
 const HeroSection = () => {
   const scrollToJoin = () => {
@@ -47,6 +48,8 @@ const HeroSection = () => {
         >
           Join the Founding Circle
         </button>
+
+        <AdminMediaBlock section="hero" slotKey="after_content" className="mt-12" />
       </div>
     </section>
   );

@@ -1,6 +1,7 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import EditableField from "@/components/EditableField";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
+import AdminMediaBlock from "@/components/AdminMediaBlock";
 
 const ProofSection = () => {
   const headingRef = useScrollReveal();
@@ -41,6 +42,8 @@ const ProofSection = () => {
           <ImagePlaceholder section="proof" imageKey="image_3" label="Landscape" />
           <ImagePlaceholder section="proof" imageKey="image_4" label="Landscape" />
         </div>
+
+        <AdminMediaBlock section="proof" slotKey="gallery" className="mt-8 max-w-lg" />
       </div>
     </section>
   );

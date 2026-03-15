@@ -1,6 +1,7 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import EditableField from "@/components/EditableField";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
+import AdminMediaBlock from "@/components/AdminMediaBlock";
 
 const BuildSection = () => {
   const headingRef = useScrollReveal();
@@ -39,6 +40,8 @@ const BuildSection = () => {
           className="mt-12 max-w-lg"
           label="Palawan"
         />
+
+        <AdminMediaBlock section="build" slotKey="after_body" className="mt-8 max-w-lg" />
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import EditableField from "@/components/EditableField";
+import AdminMediaBlock from "@/components/AdminMediaBlock";
 import {
   Table,
   TableBody,
@@ -293,6 +294,8 @@ const TechnologySection = () => {
               This cycle continuously expands the AMUMA ecosystem.
             </p>
           </div>
+
+          <AdminMediaBlock section="technology" slotKey="after_body" className="mt-8 max-w-lg" />
         </div>
       </section>
     </>

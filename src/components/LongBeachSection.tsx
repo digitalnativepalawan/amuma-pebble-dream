@@ -1,6 +1,7 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import EditableField from "@/components/EditableField";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
+import AdminMediaBlock from "@/components/AdminMediaBlock";
 import {
   Table,
   TableBody,
@@ -88,6 +89,8 @@ const LongBeachSection = () => {
             </Table>
           </div>
         </div>
+
+        <AdminMediaBlock section="longbeach" slotKey="after_body" className="mt-8 max-w-lg" />
       </div>
     </section>
   );

@@ -50,6 +50,45 @@ export type Database = {
         }
         Relationships: []
       }
+      section_media: {
+        Row: {
+          caption: string | null
+          created_at: string | null
+          display_mode: string
+          external_url: string | null
+          id: string
+          image_url: string | null
+          media_type: string
+          section_id: string
+          slot_key: string
+          sort_order: number
+        }
+        Insert: {
+          caption?: string | null
+          created_at?: string | null
+          display_mode?: string
+          external_url?: string | null
+          id?: string
+          image_url?: string | null
+          media_type?: string
+          section_id: string
+          slot_key: string
+          sort_order?: number
+        }
+        Update: {
+          caption?: string | null
+          created_at?: string | null
+          display_mode?: string
+          external_url?: string | null
+          id?: string
+          image_url?: string | null
+          media_type?: string
+          section_id?: string
+          slot_key?: string
+          sort_order?: number
+        }
+        Relationships: []
+      }
       site_content: {
         Row: {
           field_key: string

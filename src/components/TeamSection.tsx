@@ -1,4 +1,5 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import AdminMediaBlock from "@/components/AdminMediaBlock";
 
 const TeamSection = () => {
   const headingRef = useScrollReveal();
@@ -40,6 +41,8 @@ const TeamSection = () => {
             </div>
           </div>
         </div>
+
+        <AdminMediaBlock section="team" slotKey="after_body" className="mt-8 max-w-md" />
       </div>
     </section>
   );

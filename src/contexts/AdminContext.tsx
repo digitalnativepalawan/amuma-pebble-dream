@@ -8,6 +8,18 @@ interface ContentItem {
   image_url: string | null;
 }
 
+interface MediaItem {
+  id: string;
+  section_id: string;
+  slot_key: string;
+  media_type: string;
+  image_url: string | null;
+  external_url: string | null;
+  sort_order: number;
+  display_mode: string;
+  caption: string | null;
+}
+
 interface AdminContextType {
   isAdminMode: boolean;
   toggleAdminMode: () => void;
@@ -16,6 +28,13 @@ interface AdminContextType {
   updateContent: (section: string, key: string, value: string) => Promise<void>;
   uploadImage: (section: string, key: string, file: File) => Promise<string | null>;
   saving: boolean;
+  // Media methods
+  getMedia: (section: string, slotKey: string) => MediaItem[];
+  uploadMediaItem: (section: string, slotKey: string, file: File) => Promise<void>;
+  addExternalMedia: (section: string, slotKey: string, url: string, type: string) => Promise<void>;
+  deleteMediaItem: (id: string) => Promise<void>;
+  reorderMediaItem: (id: string, direction: number) => Promise<void>;
+  updateMediaMode: (section: string, slotKey: string, mode: string) => Promise<void>;
 }
 
 const AdminContext = createContext<AdminContextType | null>(null);
@@ -29,10 +48,12 @@ export const useAdmin = () => {
 export const AdminProvider = ({ children }: { children: ReactNode }) => {
   const [isAdminMode, setIsAdminMode] = useState(() => localStorage.getItem("amuma_admin") === "true");
   const [content, setContent] = useState<Record<string, Record<string, ContentItem>>>({});
+  const [media, setMedia] = useState<MediaItem[]>([]);
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     loadContent();
+    loadMedia();
   }, []);
 
   const loadContent = async () => {
@@ -48,6 +69,15 @@ export const AdminProvider = ({ children }: { children: ReactNode }) => {
       }
     } catch (e) {
       console.log("Could not load site content", e);
+    }
+  };
+
+  const loadMedia = async () => {
+    try {
+      const { data } = await (supabase as any).from("section_media").select("*").order("sort_order");
+      if (data) setMedia(data);
+    } catch (e) {
+      console.log("Could not load section media", e);
     }
   };
 
@@ -134,9 +164,126 @@ export const AdminProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
+  // ── Media methods ──
+
+  const getMedia = useCallback(
+    (section: string, slotKey: string): MediaItem[] => {
+      return media
+        .filter((m) => m.section_id === section && m.slot_key === slotKey)
+        .sort((a, b) => a.sort_order - b.sort_order);
+    },
+    [media]
+  );
+
+  const uploadMediaItem = useCallback(async (section: string, slotKey: string, file: File) => {
+    setSaving(true);
+    try {
+      const ext = file.name.split(".").pop();
+      const path = `${section}/${slotKey}-${Date.now()}.${ext}`;
+      const { error } = await supabase.storage.from("site-images").upload(path, file);
+      if (error) throw error;
+      const { data: urlData } = supabase.storage.from("site-images").getPublicUrl(path);
+
+      const maxOrder = media
+        .filter((m) => m.section_id === section && m.slot_key === slotKey)
+        .reduce((max, m) => Math.max(max, m.sort_order), -1);
+
+      const { data } = await (supabase as any).from("section_media").insert({
+        section_id: section,
+        slot_key: slotKey,
+        media_type: "image",
+        image_url: urlData.publicUrl,
+        sort_order: maxOrder + 1,
+      }).select().single();
+
+      if (data) setMedia((prev) => [...prev, data]);
+    } catch (e) {
+      console.error("Failed to upload media", e);
+    }
+    setSaving(false);
+  }, [media]);
+
+  const addExternalMedia = useCallback(async (section: string, slotKey: string, url: string, type: string) => {
+    setSaving(true);
+    try {
+      const maxOrder = media
+        .filter((m) => m.section_id === section && m.slot_key === slotKey)
+        .reduce((max, m) => Math.max(max, m.sort_order), -1);
+
+      const { data } = await (supabase as any).from("section_media").insert({
+        section_id: section,
+        slot_key: slotKey,
+        media_type: type,
+        external_url: url,
+        sort_order: maxOrder + 1,
+      }).select().single();
+
+      if (data) setMedia((prev) => [...prev, data]);
+    } catch (e) {
+      console.error("Failed to add external media", e);
+    }
+    setSaving(false);
+  }, [media]);
+
+  const deleteMediaItem = useCallback(async (id: string) => {
+    setSaving(true);
+    try {
+      await (supabase as any).from("section_media").delete().eq("id", id);
+      setMedia((prev) => prev.filter((m) => m.id !== id));
+    } catch (e) {
+      console.error("Failed to delete media", e);
+    }
+    setSaving(false);
+  }, []);
+
+  const reorderMediaItem = useCallback(async (id: string, direction: number) => {
+    setMedia((prev) => {
+      const item = prev.find((m) => m.id === id);
+      if (!item) return prev;
+      const slotItems = prev
+        .filter((m) => m.section_id === item.section_id && m.slot_key === item.slot_key)
+        .sort((a, b) => a.sort_order - b.sort_order);
+      const idx = slotItems.findIndex((m) => m.id === id);
+      const swapIdx = idx + direction;
+      if (swapIdx < 0 || swapIdx >= slotItems.length) return prev;
+
+      const other = slotItems[swapIdx];
+      const tempOrder = item.sort_order;
+      item.sort_order = other.sort_order;
+      other.sort_order = tempOrder;
+
+      // Fire and forget DB updates
+      (supabase as any).from("section_media").update({ sort_order: item.sort_order }).eq("id", item.id);
+      (supabase as any).from("section_media").update({ sort_order: other.sort_order }).eq("id", other.id);
+
+      return [...prev];
+    });
+  }, []);
+
+  const updateMediaMode = useCallback(async (section: string, slotKey: string, mode: string) => {
+    try {
+      await (supabase as any)
+        .from("section_media")
+        .update({ display_mode: mode })
+        .eq("section_id", section)
+        .eq("slot_key", slotKey);
+
+      setMedia((prev) =>
+        prev.map((m) =>
+          m.section_id === section && m.slot_key === slotKey ? { ...m, display_mode: mode } : m
+        )
+      );
+    } catch (e) {
+      console.error("Failed to update display mode", e);
+    }
+  }, []);
+
   return (
     <AdminContext.Provider
-      value={{ isAdminMode, toggleAdminMode, getContent, getImage, updateContent, uploadImage, saving }}
+      value={{
+        isAdminMode, toggleAdminMode, getContent, getImage, updateContent, uploadImage, saving,
+        getMedia, uploadMediaItem, addExternalMedia, deleteMediaItem, reorderMediaItem, updateMediaMode,
+      }}
     >
       {children}
     </AdminContext.Provider>
