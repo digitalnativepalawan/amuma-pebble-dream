@@ -42,6 +42,8 @@ const ProofSection = () => {
           <ImagePlaceholder section="proof" imageKey="image_3" label="Landscape" />
           <ImagePlaceholder section="proof" imageKey="image_4" label="Landscape" />
         </div>
+
+        <AdminMediaBlock section="proof" slotKey="gallery" className="mt-8 max-w-lg" />
       </div>
     </section>
   );

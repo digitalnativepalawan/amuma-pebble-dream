@@ -125,6 +125,8 @@ const JoinSection = () => {
               </button>
             </form>
           </div>
+
+          <AdminMediaBlock section="join" slotKey="after_body" className="mt-8" />
         </div>
       </div>
     </section>

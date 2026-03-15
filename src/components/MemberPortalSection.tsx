@@ -73,6 +73,8 @@ const MemberPortalSection = () => {
             Keeping investors in the loop. Always.
           </p>
         </div>
+
+        <AdminMediaBlock section="portal" slotKey="after_body" className="mt-8 max-w-3xl" />
       </div>
     </section>
   );

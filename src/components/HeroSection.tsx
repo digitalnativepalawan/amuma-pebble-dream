@@ -48,6 +48,8 @@ const HeroSection = () => {
         >
           Join the Founding Circle
         </button>
+
+        <AdminMediaBlock section="hero" slotKey="after_content" className="mt-12" />
       </div>
     </section>
   );

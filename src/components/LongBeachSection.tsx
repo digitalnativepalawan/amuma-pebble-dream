@@ -89,6 +89,8 @@ const LongBeachSection = () => {
             </Table>
           </div>
         </div>
+
+        <AdminMediaBlock section="longbeach" slotKey="after_body" className="mt-8 max-w-lg" />
       </div>
     </section>
   );

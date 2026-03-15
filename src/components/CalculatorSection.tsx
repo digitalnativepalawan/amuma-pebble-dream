@@ -156,6 +156,8 @@ const CalculatorSection = () => {
               <p className="font-body text-xs text-muted-foreground">annually</p>
             </div>
           </div>
+
+          <AdminMediaBlock section="calculator" slotKey="after_body" className="mt-8" />
         </div>
       </div>
     </section>

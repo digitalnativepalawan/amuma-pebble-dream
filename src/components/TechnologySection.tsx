@@ -294,6 +294,8 @@ const TechnologySection = () => {
               This cycle continuously expands the AMUMA ecosystem.
             </p>
           </div>
+
+          <AdminMediaBlock section="technology" slotKey="after_body" className="mt-8 max-w-lg" />
         </div>
       </section>
     </>
