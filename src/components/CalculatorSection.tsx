@@ -157,7 +157,7 @@ const CalculatorSection = () => {
             </div>
           </div>
 
-          <AdminMediaBlock section="calculator" slotKey="after_body" className="mt-8" />
+          <AdminMediaBlock section="calculator" slotKey="after_body" className="mt-8" aspectRatio="16/9" maxItems={4} />
         </div>
       </div>
     </section>

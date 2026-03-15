@@ -46,7 +46,7 @@ const ModelSection = () => {
           <ImagePlaceholder section="model" imageKey="image_2" label="Experience" />
         </div>
 
-        <AdminMediaBlock section="model" slotKey="after_experiences" className="mt-8 max-w-lg" />
+        <AdminMediaBlock section="model" slotKey="after_experiences" className="mt-8 max-w-lg" aspectRatio="3/2" maxItems={4} />
       </div>
     </section>
   );

@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { compressImage } from "@/lib/imageCompression";
 
 interface ContentItem {
   section_id: string;
@@ -132,9 +133,10 @@ export const AdminProvider = ({ children }: { children: ReactNode }) => {
   const uploadImage = useCallback(async (section: string, key: string, file: File) => {
     setSaving(true);
     try {
-      const ext = file.name.split(".").pop();
+      const optimized = await compressImage(file);
+      const ext = optimized.name.split(".").pop();
       const path = `${section}/${key}-${Date.now()}.${ext}`;
-      const { error } = await supabase.storage.from("site-images").upload(path, file);
+      const { error } = await supabase.storage.from("site-images").upload(path, optimized);
       if (error) throw error;
       const { data: urlData } = supabase.storage.from("site-images").getPublicUrl(path);
       const publicUrl = urlData.publicUrl;
@@ -204,9 +206,10 @@ export const AdminProvider = ({ children }: { children: ReactNode }) => {
   const uploadMediaItem = useCallback(async (section: string, slotKey: string, file: File) => {
     setSaving(true);
     try {
-      const ext = file.name.split(".").pop();
+      const optimized = await compressImage(file);
+      const ext = optimized.name.split(".").pop();
       const path = `${section}/${slotKey}-${Date.now()}.${ext}`;
-      const { error } = await supabase.storage.from("site-images").upload(path, file);
+      const { error } = await supabase.storage.from("site-images").upload(path, optimized);
       if (error) throw error;
       const { data: urlData } = supabase.storage.from("site-images").getPublicUrl(path);
 
