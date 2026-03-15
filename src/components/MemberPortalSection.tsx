@@ -1,4 +1,5 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import AdminMediaBlock from "@/components/AdminMediaBlock";
 
 const bookingFeatures = [
   "Reserve stays using Pebbles",
