@@ -157,8 +157,8 @@ const AdminMediaBlock = ({ section, slotKey, className = "" }: AdminMediaBlockPr
             </CarouselContent>
             {imageItems.length > 1 && (
               <>
-                <CarouselPrevious className="-left-4" />
-                <CarouselNext className="-right-4" />
+                <CarouselPrevious className="left-2 bg-background/80 backdrop-blur-sm" />
+                <CarouselNext className="right-2 bg-background/80 backdrop-blur-sm" />
               </>
             )}
           </Carousel>
