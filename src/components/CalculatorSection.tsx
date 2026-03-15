@@ -2,45 +2,34 @@ import { useState, useMemo } from "react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { Slider } from "@/components/ui/slider";
 
-type Scenario = "conservative" | "base" | "optimistic";
+const tiers = [
+  { name: "Nova", investment: 500_000, shares: 50, pebbles: 1_000 },
+  { name: "Aurora", investment: 1_200_000, shares: 120, pebbles: 2_400 },
+  { name: "Orion", investment: 2_000_000, shares: 210, pebbles: 4_200 },
+  { name: "Polaris", investment: 4_000_000, shares: 440, pebbles: 8_800 },
+];
 
-const scenarios: Record<Scenario, { highOcc: number; lowOcc: number; margin: number; exitMultiple: number }> = {
-  conservative: { highOcc: 0.60, lowOcc: 0.25, margin: 0.35, exitMultiple: 3.0 },
-  base:         { highOcc: 0.75, lowOcc: 0.40, margin: 0.40, exitMultiple: 4.0 },
-  optimistic:   { highOcc: 0.90, lowOcc: 0.55, margin: 0.45, exitMultiple: 5.0 },
-};
-
-const HIGH_SEASON_DAYS = 274;
-const LOW_SEASON_DAYS = 91;
-const TOTAL_PEBBLES = 325_000;
-const MEMBER_SHARE = 0.60;
-const DAILY_POTENTIAL = 2 * 18_000 + 2 * 12_000 + 5 * 5_500;
+const TOTAL_MEMBER_SHARES = 2_800;
+const MEMBER_POOL_SHARE = 0.60;
 
 const fmt = (n: number) => "₱" + Math.round(n).toLocaleString();
 
 const CalculatorSection = () => {
   const headingRef = useScrollReveal();
-  const [investment, setInvestment] = useState(500_000);
-  const [scenario, setScenario] = useState<Scenario>("base");
+  const [tierIndex, setTierIndex] = useState(0);
 
-  const s = scenarios[scenario];
+  const tier = tiers[tierIndex];
 
   const results = useMemo(() => {
-    const pebbles = investment / 100;
-    const ownership = pebbles / TOTAL_PEBBLES;
-    const grossRevenue =
-      DAILY_POTENTIAL * (s.highOcc * HIGH_SEASON_DAYS + s.lowOcc * LOW_SEASON_DAYS);
-    const netProfit = grossRevenue * s.margin;
-    const memberPool = netProfit * MEMBER_SHARE;
-    const annual = memberPool * ownership;
-    const monthly = annual / 12;
-    const fiveYear = annual * 5;
-    const exitValue = investment * s.exitMultiple;
-    const totalReturn = fiveYear + exitValue;
-    const multiple = totalReturn / investment;
+    const ownership = tier.shares / TOTAL_MEMBER_SHARES;
+    // Conservative: 55% occupancy, 17-20% ROI range
+    const lowROI = 0.17;
+    const highROI = 0.20;
+    const annualLow = tier.investment * lowROI;
+    const annualHigh = tier.investment * highROI;
 
-    return { pebbles, ownership, annual, monthly, fiveYear, exitValue, totalReturn, multiple };
-  }, [investment, s]);
+    return { ownership, annualLow, annualHigh };
+  }, [tier]);
 
   return (
     <section id="calculator" className="section-padding bg-background">
@@ -50,61 +39,49 @@ const CalculatorSection = () => {
             Your Returns
           </h2>
           <p className="font-body text-base text-muted-foreground">
-            Adjust to see your potential.
+            Select a tier to see your potential.
           </p>
         </div>
 
         <div className="max-w-lg">
-          {/* Investment slider */}
+          {/* Tier selector */}
           <div className="mb-12">
-            <p className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-3">Investment</p>
-            <p className="font-display text-4xl sm:text-5xl font-normal text-primary mb-6">{fmt(investment)}</p>
+            <p className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-3">Investment Tier</p>
+            <p className="font-display text-4xl sm:text-5xl font-normal text-primary mb-2">{tier.name}</p>
+            <p className="font-body text-lg text-foreground/70 mb-6">{fmt(tier.investment)}</p>
             <Slider
-              value={[investment]}
-              onValueChange={([v]) => setInvestment(v)}
-              min={500_000}
-              max={5_000_000}
-              step={100_000}
+              value={[tierIndex]}
+              onValueChange={([v]) => setTierIndex(v)}
+              min={0}
+              max={3}
+              step={1}
             />
             <div className="flex justify-between mt-2">
-              <span className="font-body text-xs text-muted-foreground">₱500,000</span>
-              <span className="font-body text-xs text-muted-foreground">₱5,000,000</span>
+              <span className="font-body text-xs text-muted-foreground">Nova</span>
+              <span className="font-body text-xs text-muted-foreground">Polaris</span>
             </div>
-          </div>
-
-          {/* Scenario links */}
-          <div className="flex gap-6 mb-12">
-            {(["conservative", "base", "optimistic"] as Scenario[]).map((sc) => (
-              <button
-                key={sc}
-                onClick={() => setScenario(sc)}
-                className={`font-body text-sm capitalize transition-colors ${
-                  scenario === sc
-                    ? "text-primary border-b border-primary pb-1"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {sc === "base" ? "Base case" : sc}
-              </button>
-            ))}
           </div>
 
           {/* Results */}
           <div className="grid grid-cols-2 gap-x-12 gap-y-10 mb-12">
-            <ResultItem label="Pebbles" value={results.pebbles.toLocaleString()} />
+            <ResultItem label="Shares" value={tier.shares.toLocaleString()} />
             <ResultItem label="Ownership" value={`${(results.ownership * 100).toFixed(2)}%`} />
-            <ResultItem label="Annual Distribution" value={fmt(results.annual)} />
-            <ResultItem label="Monthly Average" value={fmt(results.monthly)} />
+            <ResultItem label="Annual Pebbles" value={tier.pebbles.toLocaleString()} />
+            <ResultItem label="Member Pool Share" value={`${(MEMBER_POOL_SHARE * 100).toFixed(0)}%`} />
           </div>
 
           <div className="divider mb-10" />
 
           <div className="grid grid-cols-2 gap-x-12 gap-y-10">
-            <ResultItem label="5-Year Cumulative" value={fmt(results.fiveYear)} />
-            <ResultItem label={`Exit Value (${s.exitMultiple}x)`} value={fmt(results.exitValue)} />
-            <ResultItem label="Total Return" value={fmt(results.totalReturn)} accent />
-            <ResultItem label="Multiple" value={`${results.multiple.toFixed(1)}x`} accent />
+            <ResultItem label="Est. Annual Return (Low)" value={fmt(results.annualLow)} />
+            <ResultItem label="Est. Annual Return (High)" value={fmt(results.annualHigh)} />
+            <ResultItem label="Projected ROI" value="17% – 20%" accent />
+            <ResultItem label="Assumptions" value="55% occ." />
           </div>
+
+          <p className="font-body text-xs text-muted-foreground mt-8">
+            Based on conservative assumptions: 55% occupancy, boutique luxury positioning, TIEZA 5% tourism tax.
+          </p>
         </div>
       </div>
     </section>

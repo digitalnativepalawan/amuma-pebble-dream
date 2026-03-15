@@ -1,29 +1,4 @@
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import { useCountUp } from "@/hooks/useCountUp";
-
-const StatItem = ({
-  value,
-  suffix,
-  label,
-  decimals = 0,
-}: {
-  value: number;
-  suffix?: string;
-  label: string;
-  decimals?: number;
-}) => {
-  const { value: animatedValue, ref } = useCountUp(value, 1500, decimals);
-
-  return (
-    <div ref={ref} className="text-left">
-      <div className="font-display text-5xl sm:text-6xl md:text-7xl font-normal text-primary leading-none">
-        {animatedValue.toLocaleString()}
-        {suffix && <span className="text-3xl sm:text-4xl ml-1">{suffix}</span>}
-      </div>
-      <p className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mt-3">{label}</p>
-    </div>
-  );
-};
 
 const VisionSection = () => {
   const revealRef = useScrollReveal();
@@ -35,16 +10,25 @@ const VisionSection = () => {
           <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary uppercase tracking-[0.1em] mb-4">
             The Vision
           </h2>
-          <p className="font-body text-base text-muted-foreground max-w-md leading-relaxed">
-            High quality services in hidden gems, not overcrowded with mass tourism.
-          </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-12">
-          <StatItem value={9.6} decimals={1} label="Baia Guest Score" />
-          <StatItem value={9} suffix=" mo" label="High Season" />
-          <StatItem value={2000} suffix=" sqm" label="First Property" />
-          <StatItem value={20} label="Kickstarter Spots" />
+        <div className="max-w-lg space-y-6">
+          <p className="font-body text-base text-foreground/70 leading-relaxed">
+            AMUMA is a collection of boutique retreats located in hidden destinations across Southeast Asia.
+          </p>
+          <p className="font-body text-base text-foreground/70 leading-relaxed">
+            Instead of mass tourism, AMUMA focuses on intimate, design-led retreats with limited rooms and curated experiences.
+          </p>
+          <p className="font-body text-base text-foreground/70 leading-relaxed">
+            Members participate in two ways:
+          </p>
+          <div className="space-y-3 font-body text-base text-foreground/70 leading-relaxed">
+            <p>— Lifestyle access to the retreats</p>
+            <p>— Ownership participation in the economic success of the properties</p>
+          </div>
+          <p className="font-body text-base text-foreground/70 leading-relaxed">
+            The goal is to build a network of unique destinations where members can stay, invest, and grow with the ecosystem.
+          </p>
         </div>
       </div>
     </section>

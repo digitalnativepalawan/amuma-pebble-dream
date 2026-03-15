@@ -4,12 +4,12 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
 const benefits = [
-  "Name on founding plaque at AMUMA Long Beach",
-  "20% lifetime discount at all AMUMA properties",
-  "First access to future Pebble offerings",
+  "Name on founding plaque at San Vicente Retreat",
+  "Early access to future AMUMA retreats",
+  "First access to future share offerings",
   "Annual private video update from James",
   "Invitation to annual Founders' Dinner",
-  "Listed as Founding Pebble Holder on website",
+  "Listed as Founding Circle member on website",
 ];
 
 const countries = [
@@ -70,18 +70,19 @@ const JoinSection = () => {
       <div className="container px-6">
         <div ref={headingRef} className="scroll-reveal mb-16">
           <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary uppercase tracking-[0.1em] mb-4">
-            Join the Kickstarter Circle
+            Join the Founding Circle
           </h2>
-          <p className="font-body text-base text-muted-foreground">20 exclusive spots at ₱500,000</p>
+          <p className="font-body text-base text-muted-foreground">20 exclusive Nova spots at ₱500,000</p>
         </div>
 
         <div className="max-w-lg">
           {/* Offer */}
           <div className="mb-12">
             <div className="space-y-2 font-body text-base text-foreground/70 mb-6">
-              <p>— ₱500,000 investment</p>
-              <p>— 5,000 Pebbles (1.54% ownership)</p>
-              <p>— ~₱79,000 annual distribution</p>
+              <p>— ₱500,000 investment (Nova tier)</p>
+              <p>— 50 Membership Shares</p>
+              <p>— 1,000 Annual Pebbles</p>
+              <p>— Early access to future AMUMA retreats</p>
             </div>
             <p className="font-body text-sm text-muted-foreground">20 spots remaining</p>
           </div>
@@ -90,7 +91,7 @@ const JoinSection = () => {
 
           {/* Benefits */}
           <div className="mb-12">
-            <p className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-6">Founder Benefits</p>
+            <p className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-6">Founding Circle Benefits</p>
             <div className="space-y-3">
               {benefits.map((b) => (
                 <p key={b} className="font-body text-base text-foreground/70">— {b}</p>

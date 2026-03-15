@@ -11,7 +11,7 @@ const HeroSection = () => {
           AMUMA
         </h1>
         <p className="font-body text-lg sm:text-xl text-muted-foreground mb-3 tracking-wide">
-          Barefoot Boutique Resorts in Hidden Gems
+          Boutique Retreats in Hidden Destinations
         </p>
         <p className="font-body text-base text-muted-foreground italic mb-12">
           Dream high, fly low.
@@ -20,7 +20,7 @@ const HeroSection = () => {
           onClick={scrollToJoin}
           className="font-body text-sm tracking-wide text-primary border border-primary rounded-full px-10 py-4 hover:bg-primary/5 transition-all duration-300"
         >
-          Become a Founding Pebble Holder
+          Join the Founding Circle
         </button>
       </div>
     </section>
