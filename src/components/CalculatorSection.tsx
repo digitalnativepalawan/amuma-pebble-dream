@@ -4,9 +4,9 @@ import { Slider } from "@/components/ui/slider";
 
 const tiers = [
   { name: "Nova", investment: 500_000, shares: 50, pebbles: 1_000 },
-  { name: "Aurora", investment: 1_200_000, shares: 120, pebbles: 2_400 },
-  { name: "Orion", investment: 2_000_000, shares: 210, pebbles: 4_200 },
-  { name: "Polaris", investment: 4_000_000, shares: 440, pebbles: 8_800 },
+  { name: "Aurora", investment: 1_200_000, shares: 120, pebbles: 2_200 },
+  { name: "Orion", investment: 2_000_000, shares: 210, pebbles: 4_000 },
+  { name: "Polaris", investment: 4_000_000, shares: 440, pebbles: 8_000 },
 ];
 
 const TOTAL_MEMBER_SHARES = 2_800;
@@ -22,7 +22,6 @@ const CalculatorSection = () => {
 
   const results = useMemo(() => {
     const ownership = tier.shares / TOTAL_MEMBER_SHARES;
-    // Conservative: 55% occupancy, 17-20% ROI range
     const lowROI = 0.17;
     const highROI = 0.20;
     const annualLow = tier.investment * lowROI;
@@ -75,7 +74,7 @@ const CalculatorSection = () => {
           <div className="grid grid-cols-2 gap-x-12 gap-y-10">
             <ResultItem label="Est. Annual Return (Low)" value={fmt(results.annualLow)} />
             <ResultItem label="Est. Annual Return (High)" value={fmt(results.annualHigh)} />
-            <ResultItem label="Projected ROI" value="17% – 20%" accent />
+            <ResultItem label="Projected ROI" value="17–20%" accent />
             <ResultItem label="Assumptions" value="55% occ." />
           </div>
 

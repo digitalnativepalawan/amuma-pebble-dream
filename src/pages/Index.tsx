@@ -13,6 +13,7 @@ import CalculatorSection from "@/components/CalculatorSection";
 import JoinSection from "@/components/JoinSection";
 import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
+import AdminBar from "@/components/AdminBar";
 
 const Index = () => {
   return (
@@ -32,6 +33,7 @@ const Index = () => {
       <JoinSection />
       <FAQSection />
       <Footer />
+      <AdminBar />
     </div>
   );
 };
