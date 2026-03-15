@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { useAdmin } from "@/contexts/AdminContext";
+import { Trash2 } from "lucide-react";
 
 interface ImagePlaceholderProps {
   section: string;
@@ -16,7 +17,7 @@ const ImagePlaceholder = ({
   aspectRatio = "16/9",
   label = "Image",
 }: ImagePlaceholderProps) => {
-  const { isAdminMode, getImage, uploadImage } = useAdmin();
+  const { isAdminMode, getImage, uploadImage, deleteImage } = useAdmin();
   const inputRef = useRef<HTMLInputElement>(null);
   const imageUrl = getImage(section, imageKey);
 
@@ -25,7 +26,6 @@ const ImagePlaceholder = ({
     if (file) await uploadImage(section, imageKey, file);
   };
 
-  // In non-admin mode: show image if exists, otherwise nothing
   if (!isAdminMode && !imageUrl) return null;
 
   return (
@@ -57,6 +57,18 @@ const ImagePlaceholder = ({
               {imageUrl ? "Replace Image" : "Upload Image"}
             </span>
           </button>
+          {imageUrl && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                deleteImage(section, imageKey);
+              }}
+              className="absolute top-2 right-2 p-1.5 rounded-full bg-destructive text-destructive-foreground shadow-md hover:bg-destructive/90 transition-colors z-10"
+              title="Delete image"
+            >
+              <Trash2 className="h-3.5 w-3.5" />
+            </button>
+          )}
         </>
       )}
     </div>

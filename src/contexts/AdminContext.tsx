@@ -307,7 +307,7 @@ export const AdminProvider = ({ children }: { children: ReactNode }) => {
   return (
     <AdminContext.Provider
       value={{
-        isAdminMode, toggleAdminMode, getContent, getImage, updateContent, uploadImage, saving,
+        isAdminMode, toggleAdminMode, getContent, getImage, updateContent, uploadImage, deleteImage, saving,
         getMedia, uploadMediaItem, addExternalMedia, deleteMediaItem, reorderMediaItem, updateMediaMode,
       }}
     >
