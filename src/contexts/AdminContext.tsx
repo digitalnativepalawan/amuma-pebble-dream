@@ -133,7 +133,8 @@ export const AdminProvider = ({ children }: { children: ReactNode }) => {
   const uploadImage = useCallback(async (section: string, key: string, file: File) => {
     setSaving(true);
     try {
-      const ext = file.name.split(".").pop();
+      const optimized = await compressImage(file);
+      const ext = optimized.name.split(".").pop();
       const path = `${section}/${key}-${Date.now()}.${ext}`;
       const { error } = await supabase.storage.from("site-images").upload(path, file);
       if (error) throw error;
