@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import AdminMediaBlock from "@/components/AdminMediaBlock";
 
 const benefits = [
   "Name on founding plaque at San Vicente Retreat",
