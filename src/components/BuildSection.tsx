@@ -41,7 +41,7 @@ const BuildSection = () => {
           label="Palawan"
         />
 
-        <AdminMediaBlock section="build" slotKey="after_body" className="mt-8 max-w-lg" />
+        <AdminMediaBlock section="build" slotKey="after_body" className="mt-8 max-w-lg" aspectRatio="16/9" maxItems={4} />
       </div>
     </section>
   );

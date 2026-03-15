@@ -42,7 +42,7 @@ const TeamSection = () => {
           </div>
         </div>
 
-        <AdminMediaBlock section="team" slotKey="after_body" className="mt-8 max-w-md" />
+        <AdminMediaBlock section="team" slotKey="after_body" className="mt-8 max-w-md" aspectRatio="1/1" maxItems={4} />
       </div>
     </section>
   );

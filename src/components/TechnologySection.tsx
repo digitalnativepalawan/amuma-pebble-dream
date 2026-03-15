@@ -312,7 +312,7 @@ const TechnologySection = () => {
             </p>
           </div>
 
-          <AdminMediaBlock section="technology" slotKey="after_body" className="mt-8 max-w-lg" />
+          <AdminMediaBlock section="technology" slotKey="after_body" className="mt-8 max-w-lg" aspectRatio="16/9" maxItems={4} />
         </div>
       </section>
     </>

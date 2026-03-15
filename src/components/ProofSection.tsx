@@ -43,7 +43,7 @@ const ProofSection = () => {
           <ImagePlaceholder section="proof" imageKey="image_4" label="Landscape" />
         </div>
 
-        <AdminMediaBlock section="proof" slotKey="gallery" className="mt-8 max-w-lg" />
+        <AdminMediaBlock section="proof" slotKey="gallery" className="mt-8 max-w-lg" aspectRatio="3/2" maxItems={8} />
       </div>
     </section>
   );

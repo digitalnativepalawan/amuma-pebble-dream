@@ -49,7 +49,7 @@ const FAQSection = () => {
           </Accordion>
         </div>
 
-        <AdminMediaBlock section="faq" slotKey="after_body" className="mt-8 max-w-lg" />
+        <AdminMediaBlock section="faq" slotKey="after_body" className="mt-8 max-w-lg" aspectRatio="16/9" maxItems={1} />
       </div>
     </section>
   );

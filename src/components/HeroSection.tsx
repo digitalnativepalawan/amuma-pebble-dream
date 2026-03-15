@@ -49,7 +49,7 @@ const HeroSection = () => {
           Join the Founding Circle
         </button>
 
-        <AdminMediaBlock section="hero" slotKey="after_content" className="mt-12" />
+        <AdminMediaBlock section="hero" slotKey="after_content" className="mt-12" aspectRatio="16/9" maxItems={1} />
       </div>
     </section>
   );
