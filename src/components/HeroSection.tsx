@@ -1,5 +1,6 @@
 import EditableField from "@/components/EditableField";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
+import AdminMediaBlock from "@/components/AdminMediaBlock";
 
 const HeroSection = () => {
   const scrollToJoin = () => {
