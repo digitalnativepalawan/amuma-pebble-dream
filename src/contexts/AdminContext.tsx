@@ -165,6 +165,31 @@ export const AdminProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
+  const deleteImage = useCallback(async (section: string, key: string) => {
+    setSaving(true);
+    try {
+      await (supabase as any).from("site_content").upsert(
+        { section_id: section, field_key: key, image_url: null, updated_at: new Date().toISOString() },
+        { onConflict: "section_id,field_key" }
+      );
+      setContent((prev) => ({
+        ...prev,
+        [section]: {
+          ...prev[section],
+          [key]: {
+            section_id: section,
+            field_key: key,
+            text_value: prev[section]?.[key]?.text_value || null,
+            image_url: null,
+          },
+        },
+      }));
+    } catch (e) {
+      console.error("Failed to delete image", e);
+    }
+    setSaving(false);
+  }, []);
+
   // ── Media methods ──
 
   const getMedia = useCallback(
