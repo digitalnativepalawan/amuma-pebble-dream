@@ -18,29 +18,29 @@ const ModelSection = () => {
         </div>
 
         <div ref={contentRef} className="scroll-reveal grid md:grid-cols-2 gap-16 mb-16">
-          {/* Pebbles */}
+          {/* Shares */}
           <div>
             <h3 className="font-display text-xl font-bold text-foreground mb-6 uppercase tracking-wide">
-              Pebbles (Equity)
+              Membership Shares (Ownership)
             </h3>
             <div className="space-y-3 font-body text-base text-foreground/70 leading-relaxed">
-              <p>— Ownership stake in AMUMA Long Beach, Inc.</p>
-              <p>— Passive income from 60% of room profits</p>
+              <p>— Ownership stake in AMUMA retreats</p>
+              <p>— Passive income from 60% of rental revenue</p>
               <p>— Cumulative and transferable</p>
-              <p>— 325,000 total Pebbles at ₱100 each</p>
+              <p>— 4,400 total shares per retreat</p>
             </div>
           </div>
 
-          {/* Club Shares */}
+          {/* Pebbles */}
           <div>
             <h3 className="font-display text-xl font-bold text-foreground mb-6 uppercase tracking-wide">
-              Club Shares (Access)
+              Pebbles (Experience Credits)
             </h3>
             <div className="space-y-3 font-body text-base text-foreground/70 leading-relaxed">
-              <p>— Membership access to AMUMA properties</p>
-              <p>— Renewable annually (July 10 – July 9)</p>
-              <p>— Giftable to friends and family</p>
-              <p>— Non-cumulative, expires yearly</p>
+              <p>— Annual stay credits for AMUMA retreats</p>
+              <p>— Used for accommodation and curated experiences</p>
+              <p>— Renew annually</p>
+              <p>— Allocated based on investment tier</p>
             </div>
           </div>
         </div>
@@ -50,8 +50,8 @@ const ModelSection = () => {
         <div ref={flowRef} className="scroll-reveal max-w-md">
           <h3 className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-6">Revenue Flow</h3>
           <div className="space-y-3 font-body text-base text-foreground/70">
-            <p>Room Revenue → 60% Member Pool → Pebble Holders</p>
-            <p>Room Revenue → 40% Operating Holding → Management</p>
+            <p>Accommodation Revenue → 60% Membership Shareholders</p>
+            <p>Accommodation Revenue → 40% AMUMA Operator</p>
           </div>
         </div>
       </div>

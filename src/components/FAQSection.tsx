@@ -7,14 +7,14 @@ import {
 } from "@/components/ui/accordion";
 
 const faqs = [
-  { q: "Is this a security?", a: "Private offering to verified investors. Legal wrapper ensures Pebbles represent shares in AMUMA Long Beach, Inc. No public trading." },
-  { q: "Can I sell my Pebbles?", a: "Yes, within the private ecosystem. Transfer to other verified investors through your dashboard." },
-  { q: "What if I need to cash out early?", a: "You can transfer your Pebbles to another verified investor. The blockchain enables secure peer-to-peer transfers." },
-  { q: "How do I receive my revenue?", a: "Smart contracts automatically distribute profits monthly to your connected wallet. Dashboard shows all transactions." },
-  { q: "What's the minimum investment?", a: "Tier 1 Kickstarter Circle requires ₱500,000. Future tiers will have different minimums." },
-  { q: "Do I need to understand cryptocurrency?", a: "No. The dashboard handles everything. You see your Pebbles and earnings in simple PHP amounts." },
+  { q: "What are Membership Shares?", a: "Membership Shares represent ownership in an AMUMA retreat. They entitle you to a share of the rental income and annual Pebble credits for stays." },
+  { q: "What are Pebbles?", a: "Pebbles are experience credits that renew annually. They can be used for accommodation and curated experiences at AMUMA retreats." },
+  { q: "Can I sell my shares?", a: "Yes, shares are transferable to other verified members within the AMUMA ecosystem." },
+  { q: "How do I receive my revenue?", a: "Rental income is distributed to Membership Shareholders from the shared rental pool. 60% of accommodation revenue goes to members." },
+  { q: "What's the minimum investment?", a: "The Nova tier starts at ₱500,000 for 50 shares and 1,000 annual Pebbles." },
+  { q: "What is the Founding Circle?", a: "The first 20 Nova investors form the Founding Circle and receive early access to future AMUMA retreats and exclusive benefits." },
   { q: "Can companies invest?", a: "Yes. AMUMA welcomes corporate investors, family offices, and entities." },
-  { q: "What happens to my Club Shares if I don't renew?", a: "They expire July 9 annually. You can renew each year to maintain access." },
+  { q: "What returns can I expect?", a: "Based on conservative assumptions (55% occupancy, boutique luxury positioning), projected annual ROI is 17%–20% depending on occupancy growth and operational performance." },
 ];
 
 const FAQSection = () => {
