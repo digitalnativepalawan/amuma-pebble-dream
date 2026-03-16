@@ -50,6 +50,104 @@ export type Database = {
         }
         Relationships: []
       }
+      content_versions: {
+        Row: {
+          block_id: string
+          content: Json
+          created_at: string
+          created_by: string | null
+          id: string
+        }
+        Insert: {
+          block_id: string
+          content?: Json
+          created_at?: string
+          created_by?: string | null
+          id?: string
+        }
+        Update: {
+          block_id?: string
+          content?: Json
+          created_at?: string
+          created_by?: string | null
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_versions_block_id_fkey"
+            columns: ["block_id"]
+            isOneToOne: false
+            referencedRelation: "page_blocks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      media_library: {
+        Row: {
+          alt_text: string | null
+          created_at: string
+          file_size: number | null
+          filename: string
+          id: string
+          media_type: string
+          uploaded_by: string | null
+          url: string
+        }
+        Insert: {
+          alt_text?: string | null
+          created_at?: string
+          file_size?: number | null
+          filename: string
+          id?: string
+          media_type?: string
+          uploaded_by?: string | null
+          url: string
+        }
+        Update: {
+          alt_text?: string | null
+          created_at?: string
+          file_size?: number | null
+          filename?: string
+          id?: string
+          media_type?: string
+          uploaded_by?: string | null
+          url?: string
+        }
+        Relationships: []
+      }
+      page_blocks: {
+        Row: {
+          block_order: number
+          block_type: string
+          content: Json
+          created_at: string
+          id: string
+          is_visible: boolean
+          page_slug: string
+          updated_at: string
+        }
+        Insert: {
+          block_order?: number
+          block_type: string
+          content?: Json
+          created_at?: string
+          id?: string
+          is_visible?: boolean
+          page_slug: string
+          updated_at?: string
+        }
+        Update: {
+          block_order?: number
+          block_type?: string
+          content?: Json
+          created_at?: string
+          id?: string
+          is_visible?: boolean
+          page_slug?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       section_media: {
         Row: {
           caption: string | null
@@ -113,6 +211,24 @@ export type Database = {
           section_id?: string
           text_value?: string | null
           updated_at?: string | null
+        }
+        Relationships: []
+      }
+      site_settings: {
+        Row: {
+          key: string
+          updated_at: string
+          value: Json
+        }
+        Insert: {
+          key: string
+          updated_at?: string
+          value?: Json
+        }
+        Update: {
+          key?: string
+          updated_at?: string
+          value?: Json
         }
         Relationships: []
       }
