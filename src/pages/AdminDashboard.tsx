@@ -14,6 +14,10 @@ import NumbersBlockEditor from "@/components/admin/NumbersBlockEditor";
 import StatsBlockEditor from "@/components/admin/StatsBlockEditor";
 import ImageBlockEditor from "@/components/admin/ImageBlockEditor";
 import VideoBlockEditor from "@/components/admin/VideoBlockEditor";
+import ListBlockEditor from "@/components/admin/ListBlockEditor";
+import TimelineBlockEditor from "@/components/admin/TimelineBlockEditor";
+import FAQBlockEditor from "@/components/admin/FAQBlockEditor";
+import ColumnsBlockEditor from "@/components/admin/ColumnsBlockEditor";
 import MediaLibrary from "@/components/admin/MediaLibrary";
 import SiteSettings from "@/components/admin/SiteSettings";
 
@@ -28,9 +32,7 @@ const AdminDashboard = () => {
   const [newPageName, setNewPageName] = useState("");
   const [showNewPage, setShowNewPage] = useState(false);
 
-  if (!authenticated) {
-    return <AdminLogin onAuthenticated={() => setAuthenticated(true)} />;
-  }
+  if (!authenticated) return <AdminLogin onAuthenticated={() => setAuthenticated(true)} />;
 
   const allPages = [...new Set([...DEFAULT_PAGES, ...pages])];
 
@@ -43,10 +45,7 @@ const AdminDashboard = () => {
     setShowNewPage(false);
   };
 
-  const handleSignOut = () => {
-    localStorage.removeItem("amuma_admin_auth");
-    setAuthenticated(false);
-  };
+  const handleSignOut = () => { localStorage.removeItem("amuma_admin_auth"); setAuthenticated(false); };
 
   const editorForBlock = (block: PageBlock) => {
     const props = { block, open: true, onClose: () => setEditingBlock(null) };
@@ -57,6 +56,10 @@ const AdminDashboard = () => {
       case "stats": return <StatsBlockEditor {...props} />;
       case "image": return <ImageBlockEditor {...props} />;
       case "video": return <VideoBlockEditor {...props} />;
+      case "list": return <ListBlockEditor {...props} />;
+      case "timeline": return <TimelineBlockEditor {...props} />;
+      case "faq": return <FAQBlockEditor {...props} />;
+      case "columns": return <ColumnsBlockEditor {...props} />;
       default: return <TextBlockEditor {...props} />;
     }
   };
@@ -68,9 +71,7 @@ const AdminDashboard = () => {
           <h1 className="font-display text-2xl font-bold text-primary">AMUMA CMS</h1>
           <div className="flex items-center gap-3">
             <Link to="/" className="font-body text-sm text-primary hover:underline">← View Site</Link>
-            <Button variant="outline" size="sm" onClick={handleSignOut}>
-              <LogOut className="w-4 h-4 mr-1" /> Sign Out
-            </Button>
+            <Button variant="outline" size="sm" onClick={handleSignOut}><LogOut className="w-4 h-4 mr-1" /> Sign Out</Button>
           </div>
         </div>
       </div>
@@ -88,15 +89,7 @@ const AdminDashboard = () => {
               <div className="space-y-2">
                 <p className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-3">Pages</p>
                 {allPages.map((page) => (
-                  <button
-                    key={page}
-                    onClick={() => setSelectedPage(page)}
-                    className={`w-full text-left px-3 py-2 rounded font-body text-sm capitalize transition-colors ${
-                      selectedPage === page ? "bg-primary text-primary-foreground" : "hover:bg-muted text-foreground"
-                    }`}
-                  >
-                    {page}
-                  </button>
+                  <button key={page} onClick={() => setSelectedPage(page)} className={`w-full text-left px-3 py-2 rounded font-body text-sm capitalize transition-colors ${selectedPage === page ? "bg-primary text-primary-foreground" : "hover:bg-muted text-foreground"}`}>{page}</button>
                 ))}
                 {showNewPage ? (
                   <div className="flex gap-1 mt-2">
@@ -104,9 +97,7 @@ const AdminDashboard = () => {
                     <Button size="sm" onClick={handleAddPage} className="h-8">Add</Button>
                   </div>
                 ) : (
-                  <button onClick={() => setShowNewPage(true)} className="w-full text-left px-3 py-2 rounded font-body text-sm text-primary hover:bg-muted flex items-center gap-1">
-                    <Plus className="w-3 h-3" /> Add Page
-                  </button>
+                  <button onClick={() => setShowNewPage(true)} className="w-full text-left px-3 py-2 rounded font-body text-sm text-primary hover:bg-muted flex items-center gap-1"><Plus className="w-3 h-3" /> Add Page</button>
                 )}
               </div>
               <div>
