@@ -24,7 +24,7 @@ import SiteSettings from "@/components/admin/SiteSettings";
 const DEFAULT_PAGES = ["home", "investment", "palawan", "pebbles", "team", "faq"];
 
 const AdminDashboard = () => {
-  const { pages, loading: blocksLoading, createBlock } = useBlocks();
+  const { pages, loading: blocksLoading, createBlock, settings } = useBlocks();
   const [authenticated, setAuthenticated] = useState(() => localStorage.getItem("amuma_admin_auth") === "true");
   const [selectedPage, setSelectedPage] = useState("home");
   const [editingBlock, setEditingBlock] = useState<PageBlock | null>(null);
@@ -68,7 +68,7 @@ const AdminDashboard = () => {
     <div className="min-h-screen bg-background">
       <div className="border-b border-border bg-card">
         <div className="container max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <h1 className="font-display text-2xl font-bold text-primary">AMUMA CMS</h1>
+          <h1 className="font-display text-2xl font-bold text-primary">{settings?.site_name?.text ? settings.site_name.text : "Site Editor"}</h1>
           <div className="flex items-center gap-3">
             <Link to="/" className="font-body text-sm text-primary hover:underline">← View Site</Link>
             <Button variant="outline" size="sm" onClick={handleSignOut}><LogOut className="w-4 h-4 mr-1" /> Sign Out</Button>

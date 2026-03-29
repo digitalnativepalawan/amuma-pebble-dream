@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useBlocks } from "@/contexts/BlockContext";
 
 const links = [
   { label: "Circle", href: "#vision" },
@@ -18,6 +19,8 @@ const links = [
 ];
 
 const Navbar = () => {
+  const { settings } = useBlocks();
+  const siteName = settings?.site_name?.text || "My Site";
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -41,7 +44,7 @@ const Navbar = () => {
     >
       <div className="container flex items-center justify-between h-16 px-6">
         <a href="#" className="font-display text-xl font-bold text-primary uppercase tracking-[0.2em]">
-          AMUMA
+          {siteName}
         </a>
         <button
           onClick={() => setOpen(true)}
@@ -55,7 +58,7 @@ const Navbar = () => {
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent side="right" className="bg-background/95 backdrop-blur-xl w-72 border-l border-border">
           <SheetHeader>
-            <SheetTitle className="font-display text-lg text-primary uppercase tracking-[0.2em]">AMUMA</SheetTitle>
+            <SheetTitle className="font-display text-lg text-primary uppercase tracking-[0.2em]">{siteName}</SheetTitle>
           </SheetHeader>
           <nav className="mt-10 flex flex-col">
             {links.map((link) => (
