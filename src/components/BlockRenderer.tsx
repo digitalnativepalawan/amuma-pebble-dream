@@ -38,6 +38,7 @@ const TextBlock = ({ content }: { content: any }) => (
           ))}
         </div>
       )}
+      <BlockMediaDisplay media={content.media} />
     </div>
   </div>
 );
