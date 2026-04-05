@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Upload } from "lucide-react";
+import BlockMediaEditor, { MediaData, emptyMedia } from "./BlockMediaEditor";
 
 interface Props {
   block: PageBlock;
@@ -19,6 +20,7 @@ const ImageBlockEditor = ({ block, open, onClose }: Props) => {
   const [caption, setCaption] = useState(block.content.caption || "");
   const [showLibrary, setShowLibrary] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [media, setMedia] = useState<MediaData>(block.content.media || { ...emptyMedia });
   const fileRef = useRef<HTMLInputElement>(null);
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +33,7 @@ const ImageBlockEditor = ({ block, open, onClose }: Props) => {
   };
 
   const save = async () => {
-    await updateBlock(block.id, { image_url: imageUrl, alt_text: altText, caption, alignment: "center" });
+    await updateBlock(block.id, { image_url: imageUrl, alt_text: altText, caption, alignment: "center", media });
     onClose();
   };
 
@@ -84,6 +86,8 @@ const ImageBlockEditor = ({ block, open, onClose }: Props) => {
             <Label className="font-body text-xs uppercase tracking-wider">Caption</Label>
             <Input value={caption} onChange={(e) => setCaption(e.target.value)} />
           </div>
+
+          <BlockMediaEditor media={media} onChange={setMedia} blockType="image" />
 
           <div className="flex justify-end gap-2 pt-4">
             <Button variant="outline" onClick={onClose}>Cancel</Button>

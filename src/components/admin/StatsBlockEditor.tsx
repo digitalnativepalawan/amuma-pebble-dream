@@ -4,6 +4,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Plus, Trash2 } from "lucide-react";
+import BlockMediaEditor, { MediaData, emptyMedia } from "./BlockMediaEditor";
 
 interface Props {
   block: PageBlock;
@@ -16,13 +17,14 @@ const StatsBlockEditor = ({ block, open, onClose }: Props) => {
   const [stats, setStats] = useState<{ value: string; label: string }[]>(
     (block.content.stats || []).map((s: any) => ({ ...s }))
   );
+  const [media, setMedia] = useState<MediaData>(block.content.media || { ...emptyMedia });
 
   const update = (idx: number, field: "value" | "label", val: string) => {
     setStats(stats.map((s, i) => i === idx ? { ...s, [field]: val } : s));
   };
 
   const save = async () => {
-    await updateBlock(block.id, { stats });
+    await updateBlock(block.id, { stats, media });
     onClose();
   };
 
@@ -45,6 +47,7 @@ const StatsBlockEditor = ({ block, open, onClose }: Props) => {
           <Button variant="outline" size="sm" onClick={() => setStats([...stats, { value: "", label: "" }])}>
             <Plus className="w-3 h-3 mr-1" /> Add Stat
           </Button>
+          <BlockMediaEditor media={media} onChange={setMedia} blockType="stats" />
           <div className="flex justify-end gap-2 pt-4">
             <Button variant="outline" onClick={onClose}>Cancel</Button>
             <Button onClick={save}>Save</Button>

@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Plus, Trash2 } from "lucide-react";
+import BlockMediaEditor, { MediaData, emptyMedia } from "./BlockMediaEditor";
 
 interface NumberCard {
   label: string;
@@ -24,21 +25,14 @@ const NumbersBlockEditor = ({ block, open, onClose }: Props) => {
     (block.content.numbers || []).map((n: any) => ({ ...n }))
   );
   const [layout, setLayout] = useState(block.content.layout || "3-column");
+  const [media, setMedia] = useState<MediaData>(block.content.media || { ...emptyMedia });
 
   const updateCard = (idx: number, field: keyof NumberCard, val: string) => {
     setNumbers(numbers.map((n, i) => i === idx ? { ...n, [field]: val } : n));
   };
 
-  const addCard = () => {
-    setNumbers([...numbers, { label: "", value: "", description: "" }]);
-  };
-
-  const removeCard = (idx: number) => {
-    setNumbers(numbers.filter((_, i) => i !== idx));
-  };
-
   const save = async () => {
-    await updateBlock(block.id, { numbers, layout });
+    await updateBlock(block.id, { numbers, layout, media });
     onClose();
   };
 
@@ -70,7 +64,7 @@ const NumbersBlockEditor = ({ block, open, onClose }: Props) => {
             <div key={i} className="border border-border rounded-lg p-3 space-y-2">
               <div className="flex justify-between items-center">
                 <span className="font-body text-xs text-muted-foreground">Card {i + 1}</span>
-                <button onClick={() => removeCard(i)} className="text-destructive hover:bg-destructive/10 p-1 rounded">
+                <button onClick={() => setNumbers(numbers.filter((_, j) => j !== i))} className="text-destructive hover:bg-destructive/10 p-1 rounded">
                   <Trash2 className="w-3 h-3" />
                 </button>
               </div>
@@ -80,9 +74,11 @@ const NumbersBlockEditor = ({ block, open, onClose }: Props) => {
             </div>
           ))}
 
-          <Button variant="outline" onClick={addCard} className="w-full">
+          <Button variant="outline" onClick={() => setNumbers([...numbers, { label: "", value: "", description: "" }])} className="w-full">
             <Plus className="w-4 h-4 mr-1" /> Add Card
           </Button>
+
+          <BlockMediaEditor media={media} onChange={setMedia} blockType="numbers" />
 
           <div className="flex justify-end gap-2 pt-4">
             <Button variant="outline" onClick={onClose}>Cancel</Button>
