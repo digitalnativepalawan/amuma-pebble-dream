@@ -19,6 +19,7 @@ const TableBlockEditor = ({ block, open, onClose }: Props) => {
   const [headers, setHeaders] = useState<string[]>([...tableData.headers]);
   const [rows, setRows] = useState<string[][]>(tableData.rows.map((r: string[]) => [...r]));
   const [footnote, setFootnote] = useState(tableData.footnote || "");
+  const [media, setMedia] = useState<MediaData>(block.content.media || { ...emptyMedia });
 
   const updateHeader = (idx: number, val: string) => {
     const h = [...headers];
