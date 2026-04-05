@@ -153,6 +153,7 @@ const StatsBlock = ({ content }: { content: any }) => (
           </div>
         ))}
       </div>
+      <BlockMediaDisplay media={content.media} />
     </div>
   </div>
 );
