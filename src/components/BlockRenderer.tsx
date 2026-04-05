@@ -4,6 +4,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Slider } from "@/components/ui/slider";
 import { Progress } from "@/components/ui/progress";
+import BlockMediaDisplay from "@/components/BlockMediaDisplay";
 import {
   Accordion,
   AccordionContent,
