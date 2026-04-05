@@ -21,6 +21,7 @@ const links = [
 const Navbar = () => {
   const { settings } = useBlocks();
   const siteName = settings?.site_name?.text || "My Site";
+  const logoUrl = settings?.logo?.url || null;
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -43,8 +44,18 @@ const Navbar = () => {
       }`}
     >
       <div className="container flex items-center justify-between h-16 px-6">
-        <a href="#" className="font-display text-xl font-bold text-primary uppercase tracking-[0.2em]">
-          {siteName}
+        <a href="#" className="flex items-center">
+          {logoUrl ? (
+            <img
+              src={logoUrl}
+              alt={siteName}
+              className="h-8 w-auto object-contain"
+            />
+          ) : (
+            <span className="font-display text-xl font-bold text-primary uppercase tracking-[0.2em]">
+              {siteName}
+            </span>
+          )}
         </a>
         <button
           onClick={() => setOpen(true)}
@@ -58,7 +69,13 @@ const Navbar = () => {
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetContent side="right" className="bg-background/95 backdrop-blur-xl w-72 border-l border-border">
           <SheetHeader>
-            <SheetTitle className="font-display text-lg text-primary uppercase tracking-[0.2em]">{siteName}</SheetTitle>
+            <SheetTitle className="flex items-center">
+              {logoUrl ? (
+                <img src={logoUrl} alt={siteName} className="h-7 w-auto object-contain" />
+              ) : (
+                <span className="font-display text-lg text-primary uppercase tracking-[0.2em]">{siteName}</span>
+              )}
+            </SheetTitle>
           </SheetHeader>
           <nav className="mt-10 flex flex-col">
             {links.map((link) => (
