@@ -184,6 +184,7 @@ const VideoBlock = ({ content }: { content: any }) => {
           <iframe src={`https://www.youtube.com/embed/${content.video_id}`} className="absolute inset-0 w-full h-full" allowFullScreen loading="lazy" />
         </div>
         {content.caption && <p className="font-body text-xs text-muted-foreground mt-3 text-center italic">{content.caption}</p>}
+        <BlockMediaDisplay media={content.media} />
       </div>
     </div>
   );
