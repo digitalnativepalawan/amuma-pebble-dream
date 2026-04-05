@@ -117,6 +117,8 @@ const TableBlockEditor = ({ block, open, onClose }: Props) => {
             <Input value={footnote} onChange={(e) => setFootnote(e.target.value)} />
           </div>
 
+          <BlockMediaEditor media={media} onChange={setMedia} blockType="table" />
+
           <div className="flex justify-end gap-2 pt-4">
             <Button variant="outline" onClick={onClose}>Cancel</Button>
             <Button onClick={save}>Save</Button>
