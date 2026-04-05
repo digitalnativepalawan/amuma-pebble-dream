@@ -168,6 +168,7 @@ const ImageBlock = ({ content }: { content: any }) => {
           <img src={content.image_url} alt={content.alt_text || ""} className="absolute inset-0 w-full h-full object-cover object-center" loading="lazy" />
         </div>
         {content.caption && <p className="font-body text-xs text-muted-foreground mt-3 text-center italic">{content.caption}</p>}
+        <BlockMediaDisplay media={content.media} />
       </div>
     </div>
   );
