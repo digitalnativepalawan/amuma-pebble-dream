@@ -243,6 +243,7 @@ const FAQBlock = ({ content }: { content: any }) => (
           </AccordionItem>
         ))}
       </Accordion>
+      <BlockMediaDisplay media={content.media} />
     </div>
   </div>
 );
