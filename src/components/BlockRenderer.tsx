@@ -467,7 +467,7 @@ const HeroBlock = ({ content }: { content: any }) => (
     {content.image_url && (
       <img src={content.image_url} alt={content.alt_text || ""} className="absolute inset-0 w-full h-full object-cover" />
     )}
-    <div className="relative z-10 text-center px-6 py-20 max-w-2xl">
+    <div className="relative z-10 text-center px-6 py-20 max-w-2xl mx-auto">
       {content.label && (
         <p className="font-body text-xs uppercase tracking-[0.2em] text-muted-foreground mb-6">{content.label}</p>
       )}
