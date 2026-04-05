@@ -113,6 +113,7 @@ const TableBlock = ({ content }: { content: any }) => {
         {table.footnote && (
           <p className="font-body text-sm text-muted-foreground mt-8">{table.footnote}</p>
         )}
+        <BlockMediaDisplay media={content.media} />
       </div>
     </div>
   );
