@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import BlockMediaEditor, { MediaData, emptyMedia } from "./BlockMediaEditor";
 
 interface Props {
   block: PageBlock;
@@ -18,9 +19,10 @@ const TextBlockEditor = ({ block, open, onClose }: Props) => {
   const [subheading, setSubheading] = useState(block.content.subheading || "");
   const [body, setBody] = useState(block.content.body || "");
   const [alignment, setAlignment] = useState(block.content.alignment || "left");
+  const [media, setMedia] = useState<MediaData>(block.content.media || { ...emptyMedia });
 
   const save = async () => {
-    await updateBlock(block.id, { heading, subheading, body, alignment });
+    await updateBlock(block.id, { heading, subheading, body, alignment, media });
     onClose();
   };
 
@@ -59,6 +61,7 @@ const TextBlockEditor = ({ block, open, onClose }: Props) => {
               ))}
             </div>
           </div>
+          <BlockMediaEditor media={media} onChange={setMedia} blockType="text" />
           <div className="flex justify-end gap-2 pt-4">
             <Button variant="outline" onClick={onClose}>Cancel</Button>
             <Button onClick={save}>Save</Button>

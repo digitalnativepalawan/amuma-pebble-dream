@@ -6,14 +6,16 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Trash2, Plus } from "lucide-react";
+import BlockMediaEditor, { MediaData, emptyMedia } from "./BlockMediaEditor";
 
 interface Props { block: PageBlock; open: boolean; onClose: () => void; }
 
 const FAQBlockEditor = ({ block, open, onClose }: Props) => {
   const { updateBlock } = useBlocks();
   const [content, setContent] = useState({ ...block.content });
+  const [media, setMedia] = useState<MediaData>(block.content.media || { ...emptyMedia });
 
-  const save = async () => { await updateBlock(block.id, content); onClose(); };
+  const save = async () => { await updateBlock(block.id, { ...content, media }); onClose(); };
 
   const faqs: any[] = content.faqs || [];
   const setFaqs = (f: any[]) => setContent({ ...content, faqs: f });
@@ -46,6 +48,7 @@ const FAQBlockEditor = ({ block, open, onClose }: Props) => {
               <Plus className="w-3 h-3 mr-1" /> Add FAQ
             </Button>
           </div>
+          <BlockMediaEditor media={media} onChange={setMedia} blockType="faq" />
           <Button onClick={save} className="w-full">Save</Button>
         </div>
       </DialogContent>

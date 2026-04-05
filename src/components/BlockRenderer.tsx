@@ -4,6 +4,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Slider } from "@/components/ui/slider";
 import { Progress } from "@/components/ui/progress";
+import BlockMediaDisplay from "@/components/BlockMediaDisplay";
 import {
   Accordion,
   AccordionContent,
@@ -37,6 +38,7 @@ const TextBlock = ({ content }: { content: any }) => (
           ))}
         </div>
       )}
+      <BlockMediaDisplay media={content.media} />
     </div>
   </div>
 );
@@ -59,6 +61,7 @@ const ListBlock = ({ content }: { content: any }) => (
       {content.footnote && (
         <p className="font-body text-sm text-muted-foreground mt-6">{content.footnote}</p>
       )}
+      <BlockMediaDisplay media={content.media} />
     </div>
   </div>
 );
@@ -110,6 +113,7 @@ const TableBlock = ({ content }: { content: any }) => {
         {table.footnote && (
           <p className="font-body text-sm text-muted-foreground mt-8">{table.footnote}</p>
         )}
+        <BlockMediaDisplay media={content.media} />
       </div>
     </div>
   );
@@ -130,6 +134,7 @@ const NumbersBlock = ({ content }: { content: any }) => {
             </div>
           ))}
         </div>
+        <BlockMediaDisplay media={content.media} />
       </div>
     </div>
   );
@@ -148,6 +153,7 @@ const StatsBlock = ({ content }: { content: any }) => (
           </div>
         ))}
       </div>
+      <BlockMediaDisplay media={content.media} />
     </div>
   </div>
 );
@@ -162,6 +168,7 @@ const ImageBlock = ({ content }: { content: any }) => {
           <img src={content.image_url} alt={content.alt_text || ""} className="absolute inset-0 w-full h-full object-cover object-center" loading="lazy" />
         </div>
         {content.caption && <p className="font-body text-xs text-muted-foreground mt-3 text-center italic">{content.caption}</p>}
+        <BlockMediaDisplay media={content.media} />
       </div>
     </div>
   );
@@ -177,6 +184,7 @@ const VideoBlock = ({ content }: { content: any }) => {
           <iframe src={`https://www.youtube.com/embed/${content.video_id}`} className="absolute inset-0 w-full h-full" allowFullScreen loading="lazy" />
         </div>
         {content.caption && <p className="font-body text-xs text-muted-foreground mt-3 text-center italic">{content.caption}</p>}
+        <BlockMediaDisplay media={content.media} />
       </div>
     </div>
   );
@@ -211,6 +219,7 @@ const TimelineBlock = ({ content }: { content: any }) => (
           ))}
         </div>
       </div>
+      <BlockMediaDisplay media={content.media} />
     </div>
   </div>
 );
@@ -234,6 +243,7 @@ const FAQBlock = ({ content }: { content: any }) => (
           </AccordionItem>
         ))}
       </Accordion>
+      <BlockMediaDisplay media={content.media} />
     </div>
   </div>
 );
@@ -268,6 +278,7 @@ const ColumnsBlock = ({ content }: { content: any }) => (
       {content.footnote && (
         <p className="font-body text-sm text-muted-foreground mt-16">{content.footnote}</p>
       )}
+      <BlockMediaDisplay media={content.media} />
     </div>
   </div>
 );

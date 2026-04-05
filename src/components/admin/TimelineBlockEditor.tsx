@@ -5,14 +5,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Trash2, Plus } from "lucide-react";
+import BlockMediaEditor, { MediaData, emptyMedia } from "./BlockMediaEditor";
 
 interface Props { block: PageBlock; open: boolean; onClose: () => void; }
 
 const TimelineBlockEditor = ({ block, open, onClose }: Props) => {
   const { updateBlock } = useBlocks();
   const [content, setContent] = useState({ ...block.content });
+  const [media, setMedia] = useState<MediaData>(block.content.media || { ...emptyMedia });
 
-  const save = async () => { await updateBlock(block.id, content); onClose(); };
+  const save = async () => { await updateBlock(block.id, { ...content, media }); onClose(); };
 
   const entries: any[] = content.entries || [];
   const setEntries = (e: any[]) => setContent({ ...content, entries: e });
@@ -46,6 +48,7 @@ const TimelineBlockEditor = ({ block, open, onClose }: Props) => {
               <Plus className="w-3 h-3 mr-1" /> Add Entry
             </Button>
           </div>
+          <BlockMediaEditor media={media} onChange={setMedia} blockType="timeline" />
           <Button onClick={save} className="w-full">Save</Button>
         </div>
       </DialogContent>

@@ -4,6 +4,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import BlockMediaEditor, { MediaData, emptyMedia } from "./BlockMediaEditor";
 
 interface Props {
   block: PageBlock;
@@ -20,10 +21,11 @@ const VideoBlockEditor = ({ block, open, onClose }: Props) => {
   const { updateBlock } = useBlocks();
   const [videoUrl, setVideoUrl] = useState(block.content.video_id || "");
   const [caption, setCaption] = useState(block.content.caption || "");
+  const [media, setMedia] = useState<MediaData>(block.content.media || { ...emptyMedia });
 
   const save = async () => {
     const videoId = extractYouTubeId(videoUrl);
-    await updateBlock(block.id, { video_type: "youtube", video_id: videoId, caption });
+    await updateBlock(block.id, { video_type: "youtube", video_id: videoId, caption, media });
     onClose();
   };
 
@@ -57,6 +59,7 @@ const VideoBlockEditor = ({ block, open, onClose }: Props) => {
             <Label className="font-body text-xs uppercase tracking-wider">Caption</Label>
             <Input value={caption} onChange={(e) => setCaption(e.target.value)} />
           </div>
+          <BlockMediaEditor media={media} onChange={setMedia} blockType="video" />
           <div className="flex justify-end gap-2 pt-4">
             <Button variant="outline" onClick={onClose}>Cancel</Button>
             <Button onClick={save}>Save</Button>

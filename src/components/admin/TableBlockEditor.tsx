@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Plus, Trash2 } from "lucide-react";
+import BlockMediaEditor, { MediaData, emptyMedia } from "./BlockMediaEditor";
 
 interface Props {
   block: PageBlock;
@@ -18,6 +19,7 @@ const TableBlockEditor = ({ block, open, onClose }: Props) => {
   const [headers, setHeaders] = useState<string[]>([...tableData.headers]);
   const [rows, setRows] = useState<string[][]>(tableData.rows.map((r: string[]) => [...r]));
   const [footnote, setFootnote] = useState(tableData.footnote || "");
+  const [media, setMedia] = useState<MediaData>(block.content.media || { ...emptyMedia });
 
   const updateHeader = (idx: number, val: string) => {
     const h = [...headers];
@@ -50,7 +52,7 @@ const TableBlockEditor = ({ block, open, onClose }: Props) => {
   };
 
   const save = async () => {
-    await updateBlock(block.id, { table: { headers, rows, footnote } });
+    await updateBlock(block.id, { table: { headers, rows, footnote }, media });
     onClose();
   };
 
@@ -114,6 +116,8 @@ const TableBlockEditor = ({ block, open, onClose }: Props) => {
             <Label className="font-body text-xs uppercase tracking-wider">Footnote</Label>
             <Input value={footnote} onChange={(e) => setFootnote(e.target.value)} />
           </div>
+
+          <BlockMediaEditor media={media} onChange={setMedia} blockType="table" />
 
           <div className="flex justify-end gap-2 pt-4">
             <Button variant="outline" onClick={onClose}>Cancel</Button>

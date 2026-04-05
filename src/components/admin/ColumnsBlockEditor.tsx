@@ -6,14 +6,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Trash2, Plus } from "lucide-react";
+import BlockMediaEditor, { MediaData, emptyMedia } from "./BlockMediaEditor";
 
 interface Props { block: PageBlock; open: boolean; onClose: () => void; }
 
 const ColumnsBlockEditor = ({ block, open, onClose }: Props) => {
   const { updateBlock } = useBlocks();
   const [content, setContent] = useState({ ...block.content });
+  const [media, setMedia] = useState<MediaData>(block.content.media || { ...emptyMedia });
 
-  const save = async () => { await updateBlock(block.id, content); onClose(); };
+  const save = async () => { await updateBlock(block.id, { ...content, media }); onClose(); };
 
   const columns: any[] = content.columns || [{ heading: "", items: [] }, { heading: "", items: [] }];
   const setColumns = (c: any[]) => setContent({ ...content, columns: c });
@@ -55,6 +57,7 @@ const ColumnsBlockEditor = ({ block, open, onClose }: Props) => {
             <Label className="font-body text-xs uppercase tracking-wider">Footnote (optional)</Label>
             <Input value={content.footnote || ""} onChange={(e) => setContent({ ...content, footnote: e.target.value })} />
           </div>
+          <BlockMediaEditor media={media} onChange={setMedia} blockType="columns" />
           <Button onClick={save} className="w-full">Save</Button>
         </div>
       </DialogContent>

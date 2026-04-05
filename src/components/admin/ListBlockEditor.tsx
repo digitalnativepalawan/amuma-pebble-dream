@@ -5,14 +5,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Trash2, Plus, GripVertical } from "lucide-react";
+import BlockMediaEditor, { MediaData, emptyMedia } from "./BlockMediaEditor";
 
 interface Props { block: PageBlock; open: boolean; onClose: () => void; }
 
 const ListBlockEditor = ({ block, open, onClose }: Props) => {
   const { updateBlock } = useBlocks();
   const [content, setContent] = useState({ ...block.content });
+  const [media, setMedia] = useState<MediaData>(block.content.media || { ...emptyMedia });
 
-  const save = async () => { await updateBlock(block.id, content); onClose(); };
+  const save = async () => { await updateBlock(block.id, { ...content, media }); onClose(); };
 
   const items: string[] = content.items || [];
   const setItems = (newItems: string[]) => setContent({ ...content, items: newItems });
@@ -51,6 +53,7 @@ const ListBlockEditor = ({ block, open, onClose }: Props) => {
             <Label className="font-body text-xs uppercase tracking-wider">Footnote (optional)</Label>
             <Input value={content.footnote || ""} onChange={(e) => setContent({ ...content, footnote: e.target.value })} />
           </div>
+          <BlockMediaEditor media={media} onChange={setMedia} blockType="list" />
           <Button onClick={save} className="w-full">Save</Button>
         </div>
       </DialogContent>
