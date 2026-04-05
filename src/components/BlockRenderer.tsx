@@ -18,7 +18,7 @@ interface BlockRendererProps {
 /* ── TEXT ── */
 const TextBlock = ({ content }: { content: any }) => (
   <div className="container px-6">
-    <div className="max-w-lg" style={{ textAlign: content.alignment || "left" }}>
+    <div className="max-w-lg mx-auto" style={{ textAlign: content.alignment || "left" }}>
       {content.label && (
         <p className="font-body text-xs uppercase tracking-[0.2em] text-muted-foreground mb-6">{content.label}</p>
       )}
@@ -44,7 +44,7 @@ const TextBlock = ({ content }: { content: any }) => (
 /* ── LIST ── */
 const ListBlock = ({ content }: { content: any }) => (
   <div className="container px-6">
-    <div className="max-w-lg">
+    <div className="max-w-lg mx-auto">
       {content.heading && (
         <h3 className="font-display text-xl font-bold text-foreground uppercase tracking-wide mb-6">{content.heading}</h3>
       )}
@@ -69,7 +69,7 @@ const TableBlock = ({ content }: { content: any }) => {
   if (!table) return null;
   return (
     <div className="container px-6">
-      <div className="max-w-lg">
+      <div className="max-w-lg mx-auto">
         {content.heading && (
           <h3 className="font-display text-xl font-bold text-foreground uppercase tracking-wide mb-6">{content.heading}</h3>
         )}
@@ -120,7 +120,7 @@ const NumbersBlock = ({ content }: { content: any }) => {
   const gridClass = content.layout === "2-column" ? "grid-cols-2" : content.layout === "4-column" ? "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4" : "grid-cols-2 sm:grid-cols-3";
   return (
     <div className="container px-6">
-      <div className="max-w-lg">
+      <div className="max-w-lg mx-auto">
         <div className={`grid ${gridClass} gap-6`}>
           {(content.numbers || []).map((n: any, i: number) => (
             <div key={i} className="bg-card rounded-2xl p-6 border border-border text-center">
@@ -138,7 +138,7 @@ const NumbersBlock = ({ content }: { content: any }) => {
 /* ── STATS ── */
 const StatsBlock = ({ content }: { content: any }) => (
   <div className="container px-6">
-    <div className="max-w-md">
+    <div className="max-w-md mx-auto">
       <div className="divider mb-6" />
       <div className="flex gap-8">
         {(content.stats || []).map((s: any, i: number) => (
@@ -157,7 +157,7 @@ const ImageBlock = ({ content }: { content: any }) => {
   if (!content.image_url) return null;
   return (
     <div className="container px-6">
-      <div className="max-w-lg">
+      <div className="max-w-lg mx-auto">
         <div className="relative w-full overflow-hidden rounded-lg" style={{ aspectRatio: content.aspect_ratio || "16/9" }}>
           <img src={content.image_url} alt={content.alt_text || ""} className="absolute inset-0 w-full h-full object-cover object-center" loading="lazy" />
         </div>
@@ -172,7 +172,7 @@ const VideoBlock = ({ content }: { content: any }) => {
   if (!content.video_id) return null;
   return (
     <div className="container px-6">
-      <div className="max-w-lg">
+      <div className="max-w-lg mx-auto">
         <div className="relative w-full overflow-hidden rounded-lg" style={{ aspectRatio: "16/9" }}>
           <iframe src={`https://www.youtube.com/embed/${content.video_id}`} className="absolute inset-0 w-full h-full" allowFullScreen loading="lazy" />
         </div>
@@ -190,7 +190,7 @@ const DividerBlock = () => (
 /* ── TIMELINE ── */
 const TimelineBlock = ({ content }: { content: any }) => (
   <div className="container px-6">
-    <div className="max-w-lg">
+    <div className="max-w-lg mx-auto">
       {content.heading && (
         <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary uppercase tracking-[0.1em] mb-16">{content.heading}</h2>
       )}
@@ -218,7 +218,7 @@ const TimelineBlock = ({ content }: { content: any }) => (
 /* ── FAQ ── */
 const FAQBlock = ({ content }: { content: any }) => (
   <div className="container px-6">
-    <div className="max-w-lg">
+    <div className="max-w-lg mx-auto">
       {content.heading && (
         <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary uppercase tracking-[0.1em] mb-16">{content.heading}</h2>
       )}
@@ -241,7 +241,7 @@ const FAQBlock = ({ content }: { content: any }) => (
 /* ── COLUMNS ── */
 const ColumnsBlock = ({ content }: { content: any }) => (
   <div className="container px-6">
-    <div className="max-w-3xl">
+    <div className="max-w-3xl mx-auto">
       {content.heading && (
         <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary uppercase tracking-[0.1em] mb-4">{content.heading}</h2>
       )}
@@ -321,7 +321,7 @@ const CalculatorBlock = () => {
 
   return (
     <div className="container px-6">
-      <div className="max-w-lg">
+      <div className="max-w-lg mx-auto">
         <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary uppercase tracking-[0.1em] mb-4">Your Returns</h2>
         <p className="font-body text-base text-muted-foreground mb-16">Select a tier to see your potential.</p>
 
@@ -439,7 +439,7 @@ const FormBlock = () => {
 
   return (
     <div className="container px-6">
-      <div className="max-w-lg">
+      <div className="max-w-lg mx-auto">
         <p className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-8">Apply Now</p>
         <form onSubmit={handleSubmit} className="space-y-6">
           <input type="text" placeholder="First Name *" value={form.first_name} onChange={(e) => update("first_name", e.target.value)} className={inputClass} maxLength={100} />
