@@ -52,7 +52,7 @@ const TableBlockEditor = ({ block, open, onClose }: Props) => {
   };
 
   const save = async () => {
-    await updateBlock(block.id, { table: { headers, rows, footnote } });
+    await updateBlock(block.id, { table: { headers, rows, footnote }, media });
     onClose();
   };
 
