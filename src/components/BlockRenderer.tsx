@@ -61,6 +61,7 @@ const ListBlock = ({ content }: { content: any }) => (
       {content.footnote && (
         <p className="font-body text-sm text-muted-foreground mt-6">{content.footnote}</p>
       )}
+      <BlockMediaDisplay media={content.media} />
     </div>
   </div>
 );
