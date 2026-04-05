@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { applyTheme } from "@/lib/themeUtils";
 
 export interface PageBlock {
   id: string;
@@ -66,6 +67,11 @@ export const BlockProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     loadAll();
   }, []);
+
+  // Apply saved theme to CSS variables whenever settings load or change
+  useEffect(() => {
+    if (settings.theme) applyTheme(settings.theme);
+  }, [settings]);
 
   const loadAll = async () => {
     setLoading(true);
