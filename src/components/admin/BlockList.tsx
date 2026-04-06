@@ -93,7 +93,7 @@ const SortableBlock = ({ block, onEdit, toggleBlockVisibility, deleteBlock }: So
 };
 
 const BlockList = ({ pageSlug, onEdit, onAdd }: BlockListProps) => {
-  const { getBlocksForPage, deleteBlock, toggleBlockVisibility, blocks } = useBlocks();
+  const { getBlocksForPage, deleteBlock, toggleBlockVisibility, batchReorder } = useBlocks();
   const pageBlocks = getBlocksForPage(pageSlug);
 
   const sensors = useSensors(
@@ -110,16 +110,7 @@ const BlockList = ({ pageSlug, onEdit, onAdd }: BlockListProps) => {
     if (oldIndex === -1 || newIndex === -1) return;
 
     const reordered = arrayMove(pageBlocks, oldIndex, newIndex);
-
-    // Batch update all affected block orders in one go
-    const updates = reordered.map((block, idx) => 
-      supabase.from("page_blocks").update({ block_order: idx } as any).eq("id", block.id)
-    );
-    await Promise.all(updates);
-
-    // Force reload by triggering a re-fetch — update local state via context
-    // We'll directly reload from DB for consistency
-    window.location.reload();
+    await batchReorder(pageSlug, reordered.map((b) => b.id));
   };
 
   return (
