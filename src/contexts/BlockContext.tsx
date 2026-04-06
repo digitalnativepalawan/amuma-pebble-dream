@@ -154,6 +154,19 @@ export const BlockProvider = ({ children }: { children: ReactNode }) => {
     }));
   }, [blocks]);
 
+  const batchReorder = useCallback(async (_pageSlug: string, orderedIds: string[]) => {
+    const updates = orderedIds.map((id, idx) =>
+      supabase.from("page_blocks").update({ block_order: idx } as any).eq("id", id)
+    );
+    await Promise.all(updates);
+    setBlocks((prev) =>
+      prev.map((b) => {
+        const newOrder = orderedIds.indexOf(b.id);
+        return newOrder !== -1 ? { ...b, block_order: newOrder } : b;
+      })
+    );
+  }, []);
+
   const toggleBlockVisibility = useCallback(async (id: string) => {
     const block = blocks.find((b) => b.id === id);
     if (!block) return;
