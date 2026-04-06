@@ -37,6 +37,7 @@ interface BlockContextType {
   updateBlock: (id: string, content: any) => Promise<void>;
   deleteBlock: (id: string) => Promise<void>;
   reorderBlock: (id: string, direction: number) => Promise<void>;
+  batchReorder: (pageSlug: string, orderedIds: string[]) => Promise<void>;
   toggleBlockVisibility: (id: string) => Promise<void>;
   // Media
   mediaItems: MediaItem[];
