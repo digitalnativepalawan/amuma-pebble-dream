@@ -542,7 +542,7 @@ const BlockRenderer = ({ pageSlug }: BlockRendererProps) => {
           return <Component key={block.id} content={block.content} />;
         }
         return (
-          <section key={block.id} id={block.content?.section_id || undefined} className={block.block_type === "divider" ? "py-0" : "section-padding bg-background"}>
+          <section key={block.id} id={block.content?.section_id || undefined} className={block.block_type === "divider" ? "py-0" : block.block_type === "image" ? "py-4 bg-background" : "section-padding bg-background"}>
             <Component content={block.content} />
           </section>
         );
