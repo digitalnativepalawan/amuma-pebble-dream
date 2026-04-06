@@ -76,7 +76,6 @@ const TableBlock = ({ content }: { content: any }) => {
         {content.heading && (
           <h3 className="font-display text-xl font-bold text-foreground uppercase tracking-wide mb-6">{content.heading}</h3>
         )}
-        {/* Desktop */}
         <div className="hidden sm:block overflow-x-auto">
           <table className="w-full">
             <thead>
@@ -97,7 +96,6 @@ const TableBlock = ({ content }: { content: any }) => {
             </tbody>
           </table>
         </div>
-        {/* Mobile stacked */}
         <div className="sm:hidden space-y-4">
           {table.rows.map((row: string[], ri: number) => (
             <div key={ri} className="border border-border rounded-lg p-4 space-y-2">
@@ -335,7 +333,6 @@ const CalculatorBlock = () => {
       <div className="max-w-lg mx-auto">
         <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary uppercase tracking-[0.1em] mb-4">Your Returns</h2>
         <p className="font-body text-base text-muted-foreground mb-16">Select a tier to see your potential.</p>
-
         <div className="mb-12">
           <p className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-3">Investment Tier</p>
           <p className="font-display text-4xl sm:text-5xl font-normal text-primary mb-2">{tier.name}</p>
@@ -346,7 +343,6 @@ const CalculatorBlock = () => {
             <span className="font-body text-xs text-muted-foreground">Polaris</span>
           </div>
         </div>
-
         <div className="grid grid-cols-2 gap-x-12 gap-y-10 mb-6">
           <ResultItem label="Shares" value={tier.shares.toLocaleString()} />
           <div>
@@ -367,30 +363,24 @@ const CalculatorBlock = () => {
           </div>
           <ResultItem label="Member Pool Share" value={`${(MEMBER_POOL_SHARE * 100).toFixed(0)}%`} />
         </div>
-
         <div className="mb-10">
           <p className="font-body text-xs uppercase tracking-[0.15em] text-muted-foreground mb-2">Experience Value</p>
           <p className="font-display text-2xl sm:text-3xl font-normal text-primary">~{results.estimatedNights} suite nights per year</p>
           <p className="font-body text-sm text-muted-foreground mt-2">OR multiple shorter stays plus spa, dining, and boat excursions.</p>
         </div>
-
         <div className="mb-10">
           <p className="font-body text-xs text-muted-foreground leading-relaxed">
             Pebbles are annual experience credits used for accommodation, dining, spa treatments, boat excursions, and curated experiences. They renew every year and encourage members to return and continue their journey.
           </p>
         </div>
-
         <div className="divider mb-10" />
-
         <div className="grid grid-cols-2 gap-x-12 gap-y-10">
           <ResultItem label="Est. Annual Return (Low)" value={fmt(results.annualLow)} />
           <ResultItem label="Est. Annual Return (High)" value={fmt(results.annualHigh)} />
           <ResultItem label="Projected ROI" value="17–20%" accent />
           <ResultItem label="Assumptions" value="55% occ." />
         </div>
-
         <p className="font-body text-xs text-muted-foreground mt-8">Based on conservative assumptions: 55% occupancy, boutique luxury positioning, TIEZA 5% tourism tax.</p>
-
         <div className="border border-border rounded-2xl p-6 mt-12">
           <p className="font-display text-lg font-bold text-primary uppercase tracking-[0.1em] mb-4">Your Membership Value</p>
           <div className="grid grid-cols-2 gap-x-8 gap-y-4">
@@ -473,36 +463,44 @@ const FormBlock = () => {
 };
 
 /* ── HERO (full-screen with bg image) ── */
-const HeroBlock = ({ content }: { content: any }) => (
-  <section className="relative min-h-screen flex items-center justify-center bg-background">
-    {content.image_url && (
-      <img src={content.image_url} alt={content.alt_text || ""} className="absolute inset-0 w-full h-full object-cover" />
-    )}
-    <div className="relative z-10 text-center px-6 py-20 max-w-2xl mx-auto">
-      {content.label && (
-        <p className="font-body text-xs uppercase tracking-[0.2em] text-muted-foreground mb-6">{content.label}</p>
+const HeroBlock = ({ content }: { content: any }) => {
+  const { settings } = useBlocks();
+  const siteName = settings?.site_name?.text || "";
+  const logoUrl = settings?.logo?.url || null;
+
+  return (
+    <section className="relative min-h-screen flex items-center justify-center bg-background">
+      {content.image_url && (
+        <img src={content.image_url} alt={content.alt_text || ""} className="absolute inset-0 w-full h-full object-cover" />
       )}
-      {content.heading && (
-        <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold text-primary uppercase tracking-wide leading-none mb-8">{content.heading}</h1>
-      )}
-      {content.body && (
-        <div className="text-left space-y-4 font-body text-base text-foreground/70 leading-relaxed mb-12">
-          {content.body.split("\n\n").map((p: string, i: number) => (
-            <p key={i}>{p}</p>
-          ))}
-        </div>
-      )}
-      {content.cta_text && (
-        <button
-          onClick={() => { const el = document.querySelector("#join"); el?.scrollIntoView({ behavior: "smooth" }); }}
-          className="font-body text-sm tracking-wide text-primary border border-primary rounded-full px-10 py-4 hover:bg-primary/5 transition-all duration-300"
-        >
-          {content.cta_text}
-        </button>
-      )}
-    </div>
-  </section>
-);
+      <div className="relative z-10 text-center px-6 py-20 max-w-2xl mx-auto">
+        {logoUrl ? (
+          <img src={logoUrl} alt={siteName} className="h-16 w-auto object-contain mx-auto mb-6" />
+        ) : content.label ? (
+          <p className="font-body text-xs uppercase tracking-[0.2em] text-muted-foreground mb-6">{content.label}</p>
+        ) : null}
+        {content.heading && (
+          <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold text-primary uppercase tracking-wide leading-none mb-8">{content.heading}</h1>
+        )}
+        {content.body && (
+          <div className="text-left space-y-4 font-body text-base text-foreground/70 leading-relaxed mb-12">
+            {content.body.split("\n\n").map((p: string, i: number) => (
+              <p key={i}>{p}</p>
+            ))}
+          </div>
+        )}
+        {content.cta_text && (
+          <button
+            onClick={() => { const el = document.querySelector("#join"); el?.scrollIntoView({ behavior: "smooth" }); }}
+            className="font-body text-sm tracking-wide text-primary border border-primary rounded-full px-10 py-4 hover:bg-primary/5 transition-all duration-300"
+          >
+            {content.cta_text}
+          </button>
+        )}
+      </div>
+    </section>
+  );
+};
 
 /* ── BLOCK MAP ── */
 const blockComponents: Record<string, React.FC<{ content: any }>> = {
@@ -542,7 +540,6 @@ const BlockRenderer = ({ pageSlug }: BlockRendererProps) => {
       {visibleBlocks.map((block) => {
         const Component = blockComponents[block.block_type];
         if (!Component) return null;
-        // Hero renders its own <section>, others get wrapped in section-padding
         if (block.block_type === "hero") {
           return <Component key={block.id} content={block.content} />;
         }
