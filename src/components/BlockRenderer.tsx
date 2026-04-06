@@ -162,9 +162,7 @@ const ImageBlock = ({ content }: { content: any }) => {
   return (
     <div className="container px-6">
       <div className="max-w-lg mx-auto">
-        <div className="relative w-full overflow-hidden rounded-lg" style={{ aspectRatio: content.aspect_ratio || "16/9" }}>
-          <img src={content.image_url} alt={content.alt_text || ""} className="absolute inset-0 w-full h-full object-cover object-center" loading="lazy" />
-        </div>
+        <img src={content.image_url} alt={content.alt_text || ""} className="max-h-24 sm:max-h-32 w-auto object-contain mx-auto" loading="lazy" />
         {content.caption && <p className="font-body text-xs text-muted-foreground mt-3 text-center italic">{content.caption}</p>}
         <BlockMediaDisplay media={content.media} />
       </div>
