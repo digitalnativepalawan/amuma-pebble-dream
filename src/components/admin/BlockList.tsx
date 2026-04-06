@@ -1,5 +1,5 @@
 import { useBlocks, PageBlock } from "@/contexts/BlockContext";
-import { supabase } from "@/integrations/supabase/client";
+import { Button } from "@/components/ui/button";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Eye, EyeOff, Pencil, Trash2, GripVertical } from "lucide-react";
