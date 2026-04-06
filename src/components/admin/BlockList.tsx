@@ -1,6 +1,5 @@
 import { useBlocks, PageBlock } from "@/contexts/BlockContext";
 import { Button } from "@/components/ui/button";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Eye, EyeOff, Pencil, Trash2, GripVertical } from "lucide-react";
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from "@dnd-kit/core";
