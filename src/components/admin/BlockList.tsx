@@ -1,7 +1,10 @@
 import { useBlocks, PageBlock } from "@/contexts/BlockContext";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ChevronUp, ChevronDown, Eye, EyeOff, Pencil, Trash2 } from "lucide-react";
+import { ChevronUp, ChevronDown, Eye, EyeOff, Pencil, Trash2, GripVertical } from "lucide-react";
+import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from "@dnd-kit/core";
+import { SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy, useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 interface BlockListProps { pageSlug: string; onEdit: (block: PageBlock) => void; onAdd: () => void; }
 
@@ -42,11 +45,82 @@ const getPreview = (block: PageBlock): string => {
   return "Empty block";
 };
 
+const noEditor = ["divider", "form", "calculator"];
+
+interface SortableBlockProps {
+  block: PageBlock;
+  idx: number;
+  total: number;
+  onEdit: (block: PageBlock) => void;
+  reorderBlock: (id: string, direction: number) => Promise<void>;
+  toggleBlockVisibility: (id: string) => Promise<void>;
+  deleteBlock: (id: string) => Promise<void>;
+}
+
+const SortableBlock = ({ block, idx, total, onEdit, reorderBlock, toggleBlockVisibility, deleteBlock }: SortableBlockProps) => {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: block.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    zIndex: isDragging ? 10 : undefined,
+    opacity: isDragging ? 0.5 : (!block.is_visible ? 0.5 : 1),
+  };
+
+  return (
+    <div ref={setNodeRef} style={style} className={`border border-border rounded-lg p-4 bg-card`}>
+      <div className="flex items-start gap-3">
+        <button {...attributes} {...listeners} className="p-1 cursor-grab active:cursor-grabbing hover:bg-muted rounded mt-1">
+          <GripVertical className="w-4 h-4 text-muted-foreground" />
+        </button>
+        <div className="flex flex-col gap-1">
+          <button onClick={() => reorderBlock(block.id, -1)} disabled={idx === 0} className="p-1 hover:bg-muted rounded disabled:opacity-30"><ChevronUp className="w-4 h-4" /></button>
+          <button onClick={() => reorderBlock(block.id, 1)} disabled={idx === total - 1} className="p-1 hover:bg-muted rounded disabled:opacity-30"><ChevronDown className="w-4 h-4" /></button>
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 mb-1">
+            <span className={`text-xs px-2 py-0.5 rounded-full font-body uppercase tracking-wider ${typeColors[block.block_type] || "bg-muted text-foreground"}`}>{block.block_type}</span>
+          </div>
+          <p className="font-body text-sm text-foreground truncate">{getPreview(block)}</p>
+        </div>
+        <div className="flex items-center gap-1">
+          <button onClick={() => toggleBlockVisibility(block.id)} className="p-2 hover:bg-muted rounded">
+            {block.is_visible ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+          </button>
+          {!noEditor.includes(block.block_type) && (
+            <button onClick={() => onEdit(block)} className="p-2 hover:bg-muted rounded"><Pencil className="w-4 h-4" /></button>
+          )}
+          <button onClick={() => { if (confirm("Delete this block?")) deleteBlock(block.id); }} className="p-2 hover:bg-destructive/10 rounded text-destructive"><Trash2 className="w-4 h-4" /></button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const BlockList = ({ pageSlug, onEdit, onAdd }: BlockListProps) => {
   const { getBlocksForPage, deleteBlock, reorderBlock, toggleBlockVisibility } = useBlocks();
   const pageBlocks = getBlocksForPage(pageSlug);
 
-  const noEditor = ["divider", "form", "calculator"];
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
+  );
+
+  const handleDragEnd = async (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+
+    const oldIndex = pageBlocks.findIndex((b) => b.id === active.id);
+    const newIndex = pageBlocks.findIndex((b) => b.id === over.id);
+    if (oldIndex === -1 || newIndex === -1) return;
+
+    // Move step by step using existing reorderBlock
+    const direction = newIndex > oldIndex ? 1 : -1;
+    const steps = Math.abs(newIndex - oldIndex);
+    for (let i = 0; i < steps; i++) {
+      await reorderBlock(active.id as string, direction);
+    }
+  };
 
   return (
     <div className="space-y-3">
@@ -59,31 +133,22 @@ const BlockList = ({ pageSlug, onEdit, onAdd }: BlockListProps) => {
         <p className="font-body text-sm text-muted-foreground py-8 text-center">No blocks yet. Add your first block below.</p>
       )}
 
-      {pageBlocks.map((block, idx) => (
-        <div key={block.id} className={`border border-border rounded-lg p-4 bg-card transition-opacity ${!block.is_visible ? "opacity-50" : ""}`}>
-          <div className="flex items-start gap-3">
-            <div className="flex flex-col gap-1">
-              <button onClick={() => reorderBlock(block.id, -1)} disabled={idx === 0} className="p-1 hover:bg-muted rounded disabled:opacity-30"><ChevronUp className="w-4 h-4" /></button>
-              <button onClick={() => reorderBlock(block.id, 1)} disabled={idx === pageBlocks.length - 1} className="p-1 hover:bg-muted rounded disabled:opacity-30"><ChevronDown className="w-4 h-4" /></button>
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-1">
-                <span className={`text-xs px-2 py-0.5 rounded-full font-body uppercase tracking-wider ${typeColors[block.block_type] || "bg-muted text-foreground"}`}>{block.block_type}</span>
-              </div>
-              <p className="font-body text-sm text-foreground truncate">{getPreview(block)}</p>
-            </div>
-            <div className="flex items-center gap-1">
-              <button onClick={() => toggleBlockVisibility(block.id)} className="p-2 hover:bg-muted rounded">
-                {block.is_visible ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
-              </button>
-              {!noEditor.includes(block.block_type) && (
-                <button onClick={() => onEdit(block)} className="p-2 hover:bg-muted rounded"><Pencil className="w-4 h-4" /></button>
-              )}
-              <button onClick={() => { if (confirm("Delete this block?")) deleteBlock(block.id); }} className="p-2 hover:bg-destructive/10 rounded text-destructive"><Trash2 className="w-4 h-4" /></button>
-            </div>
-          </div>
-        </div>
-      ))}
+      <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+        <SortableContext items={pageBlocks.map((b) => b.id)} strategy={verticalListSortingStrategy}>
+          {pageBlocks.map((block, idx) => (
+            <SortableBlock
+              key={block.id}
+              block={block}
+              idx={idx}
+              total={pageBlocks.length}
+              onEdit={onEdit}
+              reorderBlock={reorderBlock}
+              toggleBlockVisibility={toggleBlockVisibility}
+              deleteBlock={deleteBlock}
+            />
+          ))}
+        </SortableContext>
+      </DndContext>
 
       <Button onClick={onAdd} variant="outline" className="w-full mt-4">+ Add New Block</Button>
     </div>
