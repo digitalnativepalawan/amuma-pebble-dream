@@ -1,10 +1,11 @@
 import { useBlocks, PageBlock } from "@/contexts/BlockContext";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ChevronUp, ChevronDown, Eye, EyeOff, Pencil, Trash2, GripVertical } from "lucide-react";
+import { Eye, EyeOff, Pencil, Trash2, GripVertical } from "lucide-react";
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from "@dnd-kit/core";
 import { SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { arrayMove } from "@dnd-kit/sortable";
 
 interface BlockListProps { pageSlug: string; onEdit: (block: PageBlock) => void; onAdd: () => void; }
 
@@ -49,15 +50,12 @@ const noEditor = ["divider", "form", "calculator"];
 
 interface SortableBlockProps {
   block: PageBlock;
-  idx: number;
-  total: number;
   onEdit: (block: PageBlock) => void;
-  reorderBlock: (id: string, direction: number) => Promise<void>;
   toggleBlockVisibility: (id: string) => Promise<void>;
   deleteBlock: (id: string) => Promise<void>;
 }
 
-const SortableBlock = ({ block, idx, total, onEdit, reorderBlock, toggleBlockVisibility, deleteBlock }: SortableBlockProps) => {
+const SortableBlock = ({ block, onEdit, toggleBlockVisibility, deleteBlock }: SortableBlockProps) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: block.id });
 
   const style = {
@@ -68,15 +66,11 @@ const SortableBlock = ({ block, idx, total, onEdit, reorderBlock, toggleBlockVis
   };
 
   return (
-    <div ref={setNodeRef} style={style} className={`border border-border rounded-lg p-4 bg-card`}>
+    <div ref={setNodeRef} style={style} className="border border-border rounded-lg p-4 bg-card">
       <div className="flex items-start gap-3">
         <button {...attributes} {...listeners} className="p-1 cursor-grab active:cursor-grabbing hover:bg-muted rounded mt-1">
           <GripVertical className="w-4 h-4 text-muted-foreground" />
         </button>
-        <div className="flex flex-col gap-1">
-          <button onClick={() => reorderBlock(block.id, -1)} disabled={idx === 0} className="p-1 hover:bg-muted rounded disabled:opacity-30"><ChevronUp className="w-4 h-4" /></button>
-          <button onClick={() => reorderBlock(block.id, 1)} disabled={idx === total - 1} className="p-1 hover:bg-muted rounded disabled:opacity-30"><ChevronDown className="w-4 h-4" /></button>
-        </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
             <span className={`text-xs px-2 py-0.5 rounded-full font-body uppercase tracking-wider ${typeColors[block.block_type] || "bg-muted text-foreground"}`}>{block.block_type}</span>
@@ -98,7 +92,7 @@ const SortableBlock = ({ block, idx, total, onEdit, reorderBlock, toggleBlockVis
 };
 
 const BlockList = ({ pageSlug, onEdit, onAdd }: BlockListProps) => {
-  const { getBlocksForPage, deleteBlock, reorderBlock, toggleBlockVisibility } = useBlocks();
+  const { getBlocksForPage, deleteBlock, toggleBlockVisibility, batchReorder } = useBlocks();
   const pageBlocks = getBlocksForPage(pageSlug);
 
   const sensors = useSensors(
@@ -114,12 +108,8 @@ const BlockList = ({ pageSlug, onEdit, onAdd }: BlockListProps) => {
     const newIndex = pageBlocks.findIndex((b) => b.id === over.id);
     if (oldIndex === -1 || newIndex === -1) return;
 
-    // Move step by step using existing reorderBlock
-    const direction = newIndex > oldIndex ? 1 : -1;
-    const steps = Math.abs(newIndex - oldIndex);
-    for (let i = 0; i < steps; i++) {
-      await reorderBlock(active.id as string, direction);
-    }
+    const reordered = arrayMove(pageBlocks, oldIndex, newIndex);
+    await batchReorder(pageSlug, reordered.map((b) => b.id));
   };
 
   return (
@@ -135,14 +125,11 @@ const BlockList = ({ pageSlug, onEdit, onAdd }: BlockListProps) => {
 
       <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
         <SortableContext items={pageBlocks.map((b) => b.id)} strategy={verticalListSortingStrategy}>
-          {pageBlocks.map((block, idx) => (
+          {pageBlocks.map((block) => (
             <SortableBlock
               key={block.id}
               block={block}
-              idx={idx}
-              total={pageBlocks.length}
               onEdit={onEdit}
-              reorderBlock={reorderBlock}
               toggleBlockVisibility={toggleBlockVisibility}
               deleteBlock={deleteBlock}
             />
