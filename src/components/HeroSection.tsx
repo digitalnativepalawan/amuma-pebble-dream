@@ -1,8 +1,13 @@
 import EditableField from "@/components/EditableField";
 import ImagePlaceholder from "@/components/ImagePlaceholder";
 import AdminMediaBlock from "@/components/AdminMediaBlock";
+import { useBlocks } from "@/contexts/BlockContext";
 
 const HeroSection = () => {
+  const { settings } = useBlocks();
+  const siteName = settings?.site_name?.text || "My Site";
+  const logoUrl = settings?.logo?.url || null;
+
   const scrollToJoin = () => {
     const el = document.querySelector("#join");
     el?.scrollIntoView({ behavior: "smooth" });
@@ -18,11 +23,20 @@ const HeroSection = () => {
         label="Hero Background"
       />
       <div className="relative z-10 text-center px-6 py-20 max-w-2xl">
-        <p className="font-body text-xs uppercase tracking-[0.2em] text-muted-foreground mb-6">AMUMA</p>
+        {logoUrl ? (
+          <img
+            src={logoUrl}
+            alt={siteName}
+            className="h-16 w-auto object-contain mx-auto mb-6"
+          />
+        ) : (
+          <p className="font-body text-xs uppercase tracking-[0.2em] text-muted-foreground mb-6">
+            {siteName}
+          </p>
+        )}
         <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold text-primary uppercase tracking-wide leading-none mb-8">
           <EditableField section="hero" field="title" fallback="A New Way of Traveling" />
         </h1>
-
         <div className="text-left space-y-4 font-body text-base text-foreground/70 leading-relaxed mb-12">
           <p>
             <EditableField
@@ -41,14 +55,12 @@ const HeroSection = () => {
             />
           </p>
         </div>
-
         <button
           onClick={scrollToJoin}
           className="font-body text-sm tracking-wide text-primary border border-primary rounded-full px-10 py-4 hover:bg-primary/5 transition-all duration-300"
         >
           Join the Founding Circle
         </button>
-
         <AdminMediaBlock section="hero" slotKey="after_content" className="mt-12" aspectRatio="16/9" maxItems={1} />
       </div>
     </section>
