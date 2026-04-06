@@ -215,7 +215,7 @@ export const BlockProvider = ({ children }: { children: ReactNode }) => {
   return (
     <BlockContext.Provider value={{
       blocks, loading, getBlocksForPage, createBlock, updateBlock, deleteBlock,
-      reorderBlock, toggleBlockVisibility, mediaItems, uploadMedia, deleteMedia,
+      reorderBlock, batchReorder, toggleBlockVisibility, mediaItems, uploadMedia, deleteMedia,
       updateMediaAlt, settings, updateSetting, pages,
     }}>
       {children}
