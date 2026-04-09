@@ -46,6 +46,23 @@ const getPreview = (block: PageBlock): string => {
   return "Empty block";
 };
 
+const friendlyLabel: Record<string, string> = {
+  hero: "🖼️ Cover / Banner",
+  text: "✍️ Text Section",
+  list: "📋 Bullet List",
+  table: "💰 Pricing Table",
+  numbers: "🔢 Number Cards",
+  stats: "📊 Key Numbers",
+  image: "📷 Photo",
+  video: "▶️ YouTube Video",
+  timeline: "📅 Timeline",
+  faq: "❓ Q&A / FAQ",
+  columns: "📰 Two Columns",
+  divider: "➖ Separator",
+  form: "📬 Contact Form",
+  calculator: "🧮 Calculator",
+};
+
 const noEditor = ["divider", "form", "calculator"];
 
 interface SortableBlockProps {
@@ -73,7 +90,7 @@ const SortableBlock = ({ block, onEdit, toggleBlockVisibility, deleteBlock }: So
         </button>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
-            <span className={`text-xs px-2 py-0.5 rounded-full font-body uppercase tracking-wider ${typeColors[block.block_type] || "bg-muted text-foreground"}`}>{block.block_type}</span>
+            <span className={`text-xs px-2 py-0.5 rounded-full font-body uppercase tracking-wider ${typeColors[block.block_type] || "bg-muted text-foreground"}`}>{friendlyLabel[block.block_type] || block.block_type}</span>
           </div>
           <p className="font-body text-sm text-foreground truncate">{getPreview(block)}</p>
         </div>

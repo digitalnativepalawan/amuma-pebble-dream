@@ -4,14 +4,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import BlockMediaEditor, { MediaData, emptyMedia } from "./BlockMediaEditor";
 
-interface Props {
-  block: PageBlock;
-  open: boolean;
-  onClose: () => void;
-}
+interface Props { block: PageBlock; open: boolean; onClose: () => void; }
 
 const TextBlockEditor = ({ block, open, onClose }: Props) => {
   const { updateBlock } = useBlocks();
@@ -30,41 +25,68 @@ const TextBlockEditor = ({ block, open, onClose }: Props) => {
     <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
       <DialogContent className="sm:max-w-lg max-h-[85vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="font-display">Edit Text Block</DialogTitle>
+          <DialogTitle className="font-display text-lg">✍️ Edit Text</DialogTitle>
+          <p className="font-body text-sm text-muted-foreground">Write your heading, subtitle, and main text</p>
         </DialogHeader>
+
         <div className="space-y-4 pt-2">
-          <div>
-            <Label className="font-body text-xs uppercase tracking-wider">Heading</Label>
-            <Input value={heading} onChange={(e) => setHeading(e.target.value)} />
+          {/* Heading */}
+          <div className="space-y-1.5">
+            <label className="font-body text-sm font-medium text-foreground">
+              Title <span className="text-muted-foreground font-normal">(large heading)</span>
+            </label>
+            <Input value={heading} onChange={e => setHeading(e.target.value)} placeholder="e.g. About Our Resort" />
           </div>
-          <div>
-            <Label className="font-body text-xs uppercase tracking-wider">Subheading</Label>
-            <Input value={subheading} onChange={(e) => setSubheading(e.target.value)} />
+
+          {/* Subheading */}
+          <div className="space-y-1.5">
+            <label className="font-body text-sm font-medium text-foreground">
+              Subtitle <span className="text-muted-foreground font-normal">(smaller line below title)</span>
+            </label>
+            <Input value={subheading} onChange={e => setSubheading(e.target.value)} placeholder="e.g. A peaceful escape in Palawan" />
           </div>
-          <div>
-            <Label className="font-body text-xs uppercase tracking-wider">Body</Label>
-            <Textarea value={body} onChange={(e) => setBody(e.target.value)} rows={8} />
+
+          {/* Body */}
+          <div className="space-y-1.5">
+            <label className="font-body text-sm font-medium text-foreground">
+              Main Text <span className="text-muted-foreground font-normal">(your paragraphs)</span>
+            </label>
+            <Textarea
+              value={body}
+              onChange={e => setBody(e.target.value)}
+              rows={6}
+              placeholder="Write your text here. Press Enter twice to start a new paragraph."
+              className="font-body text-sm"
+            />
+            <p className="font-body text-xs text-muted-foreground">Tip: Press Enter twice for a new paragraph</p>
           </div>
-          <div>
-            <Label className="font-body text-xs uppercase tracking-wider">Alignment</Label>
-            <div className="flex gap-2 mt-1">
-              {["left", "center", "right"].map((a) => (
-                <button
-                  key={a}
-                  onClick={() => setAlignment(a)}
-                  className={`px-4 py-2 rounded font-body text-sm capitalize ${
-                    alignment === a ? "bg-primary text-primary-foreground" : "bg-muted text-foreground"
-                  }`}
-                >
-                  {a}
+
+          {/* Alignment */}
+          <div className="space-y-1.5">
+            <label className="font-body text-sm font-medium text-foreground">Text position</label>
+            <div className="flex gap-2">
+              {[
+                { value: "left", label: "⬅ Left" },
+                { value: "center", label: "↔ Center" },
+                { value: "right", label: "➡ Right" },
+              ].map(a => (
+                <button key={a.value} onClick={() => setAlignment(a.value)}
+                  className={`flex-1 py-2 rounded-lg font-body text-sm transition-colors border ${
+                    alignment === a.value
+                      ? "bg-primary text-white border-primary"
+                      : "bg-background border-border text-muted-foreground hover:text-foreground"
+                  }`}>
+                  {a.label}
                 </button>
               ))}
             </div>
           </div>
+
           <BlockMediaEditor media={media} onChange={setMedia} blockType="text" />
-          <div className="flex justify-end gap-2 pt-4">
-            <Button variant="outline" onClick={onClose}>Cancel</Button>
-            <Button onClick={save}>Save</Button>
+
+          <div className="flex gap-2 pt-2">
+            <Button variant="outline" onClick={onClose} className="flex-1">Cancel</Button>
+            <Button onClick={save} className="flex-1">Save Text</Button>
           </div>
         </div>
       </DialogContent>
